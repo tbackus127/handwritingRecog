@@ -4,10 +4,10 @@
 This project is created for the Artificial Intelligence class at SUNY Potsdam.
 
 ## Group Members:
-* Timothy Backus
-* Tyler Fiacco
-* Eric Sakshaug
-* Jared Durant
+* Timothy Backus: http://github.com/tbackus127
+* Tyler Fiacco: (TBD)
+* Eric Sakshaug: http://github.com/EricSakshaug11
+* Jared Durant: http://github.com/durantjm198
 
 ## Detailed Description
 
