@@ -1,0 +1,3 @@
+The training images for the neural network will go here, separated into folders for each lowercase letter.
+
+For instance, 'a' number 14 would be in 'a/14.jpg', and the 3rd 's' would be in 's/3.jpg'.
