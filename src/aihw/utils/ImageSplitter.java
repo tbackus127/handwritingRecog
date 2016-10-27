@@ -1,9 +1,14 @@
 
 package aihw.utils;
 
+import java.awt.Dimension;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
@@ -18,7 +23,23 @@ import javax.imageio.ImageIO;
  */
 public class ImageSplitter {
 
-  private static final String[] VALID_IMAGE_EXTENSIONS = { "jpg", "png", "gif" };
+  /** How many boxes are in a row on the scanned image. */
+  private static final int BOXES_PER_ROW = 28;
+
+  /** How many boxes are in a column on the scanned image. */
+  private static final int BOXES_PER_COLUMN = 21;
+  
+  /** How many different characters we're looking for. */
+  private static final int GLYPH_COUNT = 26;
+
+  /** The desired image size, in pixels. */
+  private static final Dimension SCALED_IMAGE_SIZE = new Dimension(1948, 1462);
+
+  /** The width in pixels of the final image to be split's box borders. */
+  private static final int BOX_BORDER_WIDTH = 4;
+
+  /** The width in pixels of each box in the final image after scaling. */
+  private static final int BOX_SIZE = 66;
 
   /**
    * Main method.
@@ -36,13 +57,14 @@ public class ImageSplitter {
 
     // Create file handle and check if it can be used
     File scanFile = new File(args[0]);
-    if (!isFileValid(scanFile)) {
-      return;
-    }
+    System.out.println("Scanning \"" + scanFile.getAbsolutePath() + "\"...");
+//    if (!isFileValid(scanFile)) {
+//      System.err.println("Not a valid image file.");
+//      return;
+//    }
 
     doImageSplit(scanFile);
 
-    System.out.println("Scanning \"" + scanFile.getAbsolutePath() + "\"...");
   }
 
   /**
@@ -50,7 +72,7 @@ public class ImageSplitter {
    * 
    * @param img the File handle to the scanned image.
    */
-  private static void doImageSplit(File f) {
+  private static final void doImageSplit(File f) {
 
     // Read in the image file as a BufferedImage
     BufferedImage img = null;
@@ -62,7 +84,7 @@ public class ImageSplitter {
       System.err.println("Failed to read the file as an image.");
       return;
     }
-
+    
     // Split the image and save the result images
     final SplitImage[] splitImages = splitImage(img);
     for (SplitImage splImg : splitImages) {
@@ -73,36 +95,78 @@ public class ImageSplitter {
 
   /**
    * Splits the image into an array of SplitImage objects.
+   * 
    * @param sampleImg the original handwriting sample image.
    * @return an array of SplitImages, containing the image and its character.
    */
-  private static SplitImage[] splitImage(BufferedImage sampleImg) {
+  private static final SplitImage[] splitImage(BufferedImage sampleImg) {
 
-    final SplitImage[] result = new SplitImage[26];
+    final SplitImage[] result = new SplitImage[GLYPH_COUNT * BOXES_PER_COLUMN];
+
+    final int scw = (int) SCALED_IMAGE_SIZE.getWidth();
+    final int sch = (int) SCALED_IMAGE_SIZE.getHeight();
+    final int imgW = sampleImg.getWidth();
+    final int imgH = sampleImg.getHeight();
+
+    // Scale the image if needed
+    if (imgW != scw || imgH != sch) {
+
+      System.out.println("Scaling image...");
+      // Scale by Affine Transform
+      AffineTransform aTrans = new AffineTransform();
+      final double scaleRatio = (double) scw / (double) imgW;
+      aTrans.scale(scaleRatio, scaleRatio);
+      AffineTransformOp scaleOp = new AffineTransformOp(aTrans,
+          AffineTransformOp.TYPE_BICUBIC);
+
+      // Create scaled image and set the scanned image to the scaled image
+      final BufferedImage scaledImage = scaleOp.filter(sampleImg,
+          new BufferedImage(scw, sch, BufferedImage.TYPE_BYTE_GRAY));
+      sampleImg = scaledImage;
+    }
     
+    System.out.println("Saved image");
+    saveImage('a', sampleImg.getSubimage(30, 30, 40, 40));
     
-    
+    // Iterate through rows
+    int imgCount = 0;
+    for(int row = 0; row < BOXES_PER_COLUMN; row++) {
+      final int originY = row * BOX_SIZE + BOX_BORDER_WIDTH * row;
+      for(int col = 0; col < GLYPH_COUNT; col++) {
+        final int originX = col * BOX_SIZE + BOX_BORDER_WIDTH * col;
+        System.out.println("Glyph@(" + originX + "," + originY + ")");
+        final BufferedImage glyphImage = sampleImg.getSubimage(originX, originY, BOX_SIZE, BOX_SIZE);
+        result[imgCount] = new SplitImage((char)(imgCount + 'a'), glyphImage);
+        imgCount++;
+      }
+    }
+
     return result;
   }
 
   /**
-   * Saves the image to the disk.
+   * Saves a timestamped image of a character to the disk.
    * 
    * @param ch the character this image contains. Will be saved to
    *          'res/tdata/CHAR/COUNT.jpg'.
    * @param img the BufferedImage object containing the character's image data.
    */
-  private static void saveImage(char ch, BufferedImage img) {
+  private static final void saveImage(char ch, BufferedImage img) {
 
-    final File splImgFile = new File("res/img/" + ch + "/" + 0 + ".jpg");
-    
+    final String timestamp = ch + "-" + new SimpleDateFormat("yyyy-MM-dd-HH-ss")
+        .format(new Date());
+
+    File splImgFile = new File("res/tdata/" + ch + "/" + timestamp + ".jpg");
+    splImgFile.getParentFile().mkdirs();
+
     try {
+      splImgFile.createNewFile();
       ImageIO.write(img, "jpg", splImgFile);
     }
     catch (IOException e) {
       e.printStackTrace();
     }
-    
+
   }
 
   /**
@@ -111,7 +175,7 @@ public class ImageSplitter {
    * @param scanFile the File handle to the image.
    * @return true if scanFile is an image, false if not.
    */
-  private static boolean isFileValid(File scanFile) {
+  private static final boolean isFileValid(File scanFile) {
 
     // Check if the file exists
     if (!scanFile.exists()) {
@@ -122,10 +186,12 @@ public class ImageSplitter {
 
     // Ensure the file is an image
     final String mimeType = new MimetypesFileTypeMap().getContentType(scanFile);
+    System.out.println("Image type: \"" + mimeType + "\"");
     if (!mimeType.startsWith("image/")) {
       return false;
     }
 
     return true;
   }
+
 }
