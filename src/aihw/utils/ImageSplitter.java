@@ -28,18 +28,21 @@ public class ImageSplitter {
 
   /** How many boxes are in a column on the scanned image. */
   private static final int BOXES_PER_COLUMN = 21;
-  
+
   /** How many different characters we're looking for. */
   private static final int GLYPH_COUNT = 26;
 
   /** The desired image size, in pixels. */
-  private static final Dimension SCALED_IMAGE_SIZE = new Dimension(1948, 1462);
+  private static final Dimension SCALED_IMAGE_SIZE = new Dimension(1402, 1052);
 
   /** The width in pixels of the final image to be split's box borders. */
-  private static final int BOX_BORDER_WIDTH = 4;
+  private static final int BOX_BORDER_WIDTH = 3;
 
   /** The width in pixels of each box in the final image after scaling. */
-  private static final int BOX_SIZE = 66;
+  private static final int BOX_SIZE = 47;
+
+  /** An image counter to prevent overwrites. */
+  private static int IMAGE_COUNTER = 0;
 
   /**
    * Main method.
@@ -58,10 +61,10 @@ public class ImageSplitter {
     // Create file handle and check if it can be used
     File scanFile = new File(args[0]);
     System.out.println("Scanning \"" + scanFile.getAbsolutePath() + "\"...");
-//    if (!isFileValid(scanFile)) {
-//      System.err.println("Not a valid image file.");
-//      return;
-//    }
+    // if (!isFileValid(scanFile)) {
+    // System.err.println("Not a valid image file.");
+    // return;
+    // }
 
     doImageSplit(scanFile);
 
@@ -84,11 +87,12 @@ public class ImageSplitter {
       System.err.println("Failed to read the file as an image.");
       return;
     }
-    
+
     // Split the image and save the result images
     final SplitImage[] splitImages = splitImage(img);
     for (SplitImage splImg : splitImages) {
-      saveImage(splImg.getChar(), splImg.getImage());
+      if (splImg == null) break;
+      saveImage(splImg.getChar(), splImg.getImage(), IMAGE_COUNTER++);
     }
 
   }
@@ -108,7 +112,7 @@ public class ImageSplitter {
     final int imgW = sampleImg.getWidth();
     final int imgH = sampleImg.getHeight();
 
-    // Scale the image if needed
+    // Scale the image if needed (aspect ratio must be equal to 1402/1052)
     if (imgW != scw || imgH != sch) {
 
       System.out.println("Scaling image...");
@@ -124,19 +128,18 @@ public class ImageSplitter {
           new BufferedImage(scw, sch, BufferedImage.TYPE_BYTE_GRAY));
       sampleImg = scaledImage;
     }
-    
-    System.out.println("Saved image");
-    saveImage('a', sampleImg.getSubimage(30, 30, 40, 40));
-    
+
     // Iterate through rows
     int imgCount = 0;
-    for(int row = 0; row < BOXES_PER_COLUMN; row++) {
-      final int originY = row * BOX_SIZE + BOX_BORDER_WIDTH * row;
-      for(int col = 0; col < GLYPH_COUNT; col++) {
-        final int originX = col * BOX_SIZE + BOX_BORDER_WIDTH * col;
+    for (int row = 0; row < BOXES_PER_COLUMN; row++) {
+      final int originY = row * BOX_SIZE + BOX_BORDER_WIDTH * (row + 1);
+      for (int col = 0; col < GLYPH_COUNT; col++) {
+        System.out.println("Fetching " + row + "," + col);
+        final int originX = col * BOX_SIZE + BOX_BORDER_WIDTH * (col + 1);
         System.out.println("Glyph@(" + originX + "," + originY + ")");
-        final BufferedImage glyphImage = sampleImg.getSubimage(originX, originY, BOX_SIZE, BOX_SIZE);
-        result[imgCount] = new SplitImage((char)(imgCount + 'a'), glyphImage);
+        final BufferedImage glyphImage = sampleImg.getSubimage(originX,
+            originY, BOX_SIZE, BOX_SIZE);
+        result[imgCount] = new SplitImage((char) (imgCount % 26 + 'a'), glyphImage);
         imgCount++;
       }
     }
@@ -150,13 +153,16 @@ public class ImageSplitter {
    * @param ch the character this image contains. Will be saved to
    *          'res/tdata/CHAR/COUNT.jpg'.
    * @param img the BufferedImage object containing the character's image data.
+   * @param tCount a counter to prevent overwrites.
    */
-  private static final void saveImage(char ch, BufferedImage img) {
+  private static final void saveImage(char ch, BufferedImage img, int tCount) {
 
-    final String timestamp = ch + "-" + new SimpleDateFormat("yyyy-MM-dd-HH-ss")
+    final String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-ss")
         .format(new Date());
 
-    File splImgFile = new File("res/tdata/" + ch + "/" + timestamp + ".jpg");
+    System.out.println("Saving image" + tCount);
+    File splImgFile = new File("res/tdata/" + ch + "/" + tCount + "-"
+        + timestamp + ".jpg");
     splImgFile.getParentFile().mkdirs();
 
     try {
