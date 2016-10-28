@@ -1,1 +1,0 @@
-Miscellaneous images, such as scanned-in sample pages to be split into training data.

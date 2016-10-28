@@ -1,0 +1,1 @@
+The image to split MUST have an aspect ratio of 1402/1052, and be cropped to the black border lines in order to be split properly.
