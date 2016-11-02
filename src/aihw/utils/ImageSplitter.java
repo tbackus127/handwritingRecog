@@ -100,7 +100,7 @@ public class ImageSplitter {
     final SplitImage[] splitImages = splitImage(threshImg);
     for (SplitImage splImg : splitImages) {
       if (splImg == null) break;
-      saveImage(splImg.getChar(), threshImg, IMAGE_COUNTER++);
+      saveImage(splImg.getChar(), splImg.getImage(), IMAGE_COUNTER++);
     }
 
   }
@@ -168,32 +168,37 @@ public class ImageSplitter {
   private static final BufferedImage doThreshold(BufferedImage original,
       int thresh) {
 
+    System.out.println("Creating black and white image...");
+
     // Create a new BufferedImage that will hold our threshold-ed data
-    BufferedImage resImg = new BufferedImage(original.getWidth(),
+    final BufferedImage resImg = new BufferedImage(original.getWidth(),
         original.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
     final int imgWidth = original.getWidth();
     final int imgHeight = original.getHeight();
 
     // Iterate through the image's pixels and make them either black or white
-    WritableRaster raster = original.getRaster();
-    int[] pixels = new int[imgWidth];
+    final WritableRaster origRaster = original.getRaster();
+    final WritableRaster threshRaster = resImg.getRaster();
+    final int numBands = origRaster.getNumBands();
+    final int[] origPixels = new int[imgWidth * numBands];
+    final int[] threshPixels = new int[imgWidth];
 
     // Iterate over each row
     for (int i = 0; i < imgHeight; i++) {
 
       // Get the entire row of pixels
-      System.err.println(i + "," + imgWidth + "," + pixels.length);
-      raster.getPixels(0, i, imgWidth, 1, pixels);
+      origRaster.getPixels(0, i, imgWidth, 1, origPixels);
 
       // Set each pixel to either black or white
-      for (int j = 0; j < pixels.length; j++) {
-        if (pixels[j] < thresh) {
-          pixels[j] = 0;
+      for (int j = 0; j < threshPixels.length; j++) {
+        final int avgColor = (origPixels[3 * j] + origPixels[3 * j + 1] + origPixels[3 * j + 2]) / 3;
+        if (avgColor < thresh) {
+          threshPixels[j] = 0;
         } else {
-          pixels[j] = 255;
+          threshPixels[j] = 255;
         }
       }
-      raster.setPixels(0, i, imgWidth, 1, pixels);
+      threshRaster.setPixels(0, i, imgWidth, 1, threshPixels);
     }
 
     return resImg;
