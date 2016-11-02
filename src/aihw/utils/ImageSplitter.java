@@ -61,10 +61,10 @@ public class ImageSplitter {
     // Create file handle and check if it can be used
     File scanFile = new File(args[0]);
     System.out.println("Scanning \"" + scanFile.getAbsolutePath() + "\"...");
-    // if (!isFileValid(scanFile)) {
-    // System.err.println("Not a valid image file.");
-    // return;
-    // }
+    if (!isFileValid(scanFile)) {
+      System.err.println("Not a valid image file.");
+      return;
+    }
 
     doImageSplit(scanFile);
 
@@ -139,7 +139,8 @@ public class ImageSplitter {
         System.out.println("Glyph@(" + originX + "," + originY + ")");
         final BufferedImage glyphImage = sampleImg.getSubimage(originX,
             originY, BOX_SIZE, BOX_SIZE);
-        result[imgCount] = new SplitImage((char) (imgCount % 26 + 'a'), glyphImage);
+        result[imgCount] = new SplitImage((char) (imgCount % 26 + 'a'),
+            glyphImage);
         imgCount++;
       }
     }
@@ -191,13 +192,15 @@ public class ImageSplitter {
     }
 
     // Ensure the file is an image
-    final String mimeType = new MimetypesFileTypeMap().getContentType(scanFile);
-    System.out.println("Image type: \"" + mimeType + "\"");
-    if (!mimeType.startsWith("image/")) {
-      return false;
+    final String[] validExts = { "png", "jpg", "jpeg", "gif" };
+    final String fName = scanFile.getName();
+    for (int i = 0; i < validExts.length; i++) {
+      if (fName.endsWith(validExts[i])) {
+        return true;
+      }
     }
 
-    return true;
+    return false;
   }
 
 }
