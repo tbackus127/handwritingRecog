@@ -43,8 +43,11 @@ public class ImageSplitter {
 
   /** An image counter to prevent overwrites. */
   private static int IMAGE_COUNTER = 0;
-  
-  /** The amount of color a pixel needs to be turned white by the threshold operation. */
+
+  /**
+   * The amount of color a pixel needs to be turned white by the threshold
+   * operation.
+   */
   private static int COLOR_THRESHOLD = 127;
 
   /**
@@ -91,11 +94,12 @@ public class ImageSplitter {
       return;
     }
 
+    final BufferedImage threshImg = doThreshold(img, COLOR_THRESHOLD);
+
     // Split the image and save the result images
-    final SplitImage[] splitImages = splitImage(img);
+    final SplitImage[] splitImages = splitImage(threshImg);
     for (SplitImage splImg : splitImages) {
       if (splImg == null) break;
-      final BufferedImage threshImg = doThreshold(splImg, COLOR_THRESHOLD).getImage();
       saveImage(splImg.getChar(), threshImg, IMAGE_COUNTER++);
     }
 
@@ -141,6 +145,8 @@ public class ImageSplitter {
         System.out.println("Fetching " + row + "," + col);
         final int originX = col * BOX_SIZE + BOX_BORDER_WIDTH * (col + 1);
         System.out.println("Glyph@(" + originX + "," + originY + ")");
+
+        // Create cropped sub-image
         final BufferedImage glyphImage = sampleImg.getSubimage(originX,
             originY, BOX_SIZE, BOX_SIZE);
         result[imgCount] = new SplitImage((char) (imgCount % 26 + 'a'),
@@ -159,26 +165,26 @@ public class ImageSplitter {
    * @param thresh the threshold of color.
    * @return the new threshold-ed image.
    */
-  private static final SplitImage doThreshold(SplitImage original, int thresh) {
+  private static final BufferedImage doThreshold(BufferedImage original,
+      int thresh) {
 
     // Create a new BufferedImage that will hold our threshold-ed data
-    BufferedImage resImg = new BufferedImage(original.getImage()
-        .getWidth(), original.getImage().getHeight(),
-        BufferedImage.TYPE_BYTE_GRAY);
-    final int imgWidth = original.getImage().getWidth();
-    final int imgHeight = original.getImage().getHeight();
+    BufferedImage resImg = new BufferedImage(original.getWidth(),
+        original.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+    final int imgWidth = original.getWidth();
+    final int imgHeight = original.getHeight();
 
     // Iterate through the image's pixels and make them either black or white
-    WritableRaster raster = original.getImage().getRaster();
+    WritableRaster raster = original.getRaster();
     int[] pixels = new int[imgWidth];
-    
+
     // Iterate over each row
     for (int i = 0; i < imgHeight; i++) {
-      
+
       // Get the entire row of pixels
       System.err.println(i + "," + imgWidth + "," + pixels.length);
       raster.getPixels(0, i, imgWidth, 1, pixels);
-      
+
       // Set each pixel to either black or white
       for (int j = 0; j < pixels.length; j++) {
         if (pixels[j] < thresh) {
@@ -190,7 +196,7 @@ public class ImageSplitter {
       raster.setPixels(0, i, imgWidth, 1, pixels);
     }
 
-    return new SplitImage(original.getChar(), resImg);
+    return resImg;
   }
 
   /**
