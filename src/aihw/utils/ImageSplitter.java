@@ -247,16 +247,18 @@ public class ImageSplitter {
       return false;
     }
 
-    // Ensure the file is an image
-    final String[] validExts = { "png", "jpg", "jpeg", "gif" };
-    final String fName = scanFile.getName();
-    for (int i = 0; i < validExts.length; i++) {
-      if (fName.endsWith(validExts[i])) {
-        return true;
+    try {
+      final BufferedImage bimg = ImageIO.read(scanFile);
+      if(bimg.getType() != BufferedImage.TYPE_3BYTE_BGR) {
+        System.err.println("Image must be of the type \"3BYTE_BGR\".");
+        return false;
       }
+    } catch (IOException ioe) {
+      System.err.println("Image format not recognized.");
+      return false;
     }
 
-    return false;
+    return true;
   }
 
 }
