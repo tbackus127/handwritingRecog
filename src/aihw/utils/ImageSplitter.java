@@ -48,7 +48,7 @@ public class ImageSplitter {
    * The amount of color a pixel needs to be turned white by the threshold
    * operation.
    */
-  private static int COLOR_THRESHOLD = 127;
+  private static int COLOR_THRESHOLD = 144;
 
   /**
    * Main method.
@@ -191,7 +191,9 @@ public class ImageSplitter {
 
       // Set each pixel to either black or white
       for (int j = 0; j < threshPixels.length; j++) {
-        final int avgColor = (origPixels[3 * j] + origPixels[3 * j + 1] + origPixels[3 * j + 2]) / 3;
+        final int avgColor = (origPixels[numBands * j]
+            + origPixels[numBands * j + 1] + origPixels[numBands * j + 2])
+            / numBands;
         if (avgColor < thresh) {
           threshPixels[j] = 0;
         } else {
@@ -246,19 +248,16 @@ public class ImageSplitter {
           + scanFile.getAbsolutePath() + "\"");
       return false;
     }
-
-    try {
-      final BufferedImage bimg = ImageIO.read(scanFile);
-      if(bimg.getType() != BufferedImage.TYPE_3BYTE_BGR) {
-        System.err.println("Image must be of the type \"3BYTE_BGR\".");
-        return false;
+    
+    final String[] exts = {"png", "jpg", "jpeg", "gif"};
+    for(int i = 0; i < exts.length; i++) {
+      if(scanFile.getName().endsWith(exts[i])) {
+        return true;
       }
-    } catch (IOException ioe) {
-      System.err.println("Image format not recognized.");
-      return false;
     }
-
-    return true;
+    
+    System.err.println("Image file must be .png, .jpg, .jpeg, or .gif");
+    return false;
   }
 
 }
