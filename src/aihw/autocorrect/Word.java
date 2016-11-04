@@ -1,4 +1,4 @@
-package aihw.autocorrect.Word;
+package aihw.autocorrect;
 
 public class Word{
 

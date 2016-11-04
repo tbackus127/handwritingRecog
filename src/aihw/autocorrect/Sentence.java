@@ -1,4 +1,4 @@
-package aihw.autocorrect.Sentence;
+package aihw.autocorrect;
 
 import java.util.ArrayList;
 
