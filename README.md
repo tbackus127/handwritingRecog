@@ -16,3 +16,11 @@ This project is centered around using computer vision as a means of reading and 
 This project deals with the real-world problem of handwriting recognition; since everybody’s handwriting is different, this poses a problem in terms of a specific algorithm to follow. Since it would be impossible to develop an algorithm that will correctly read and parse human writing 100% of the time, this problem falls under the issue of artificial intelligence. In order to conquer this problem, our team will have to research neural networks, and how to train one to discern the sometimes subtle differences between lowercase letters in the English alphabet. In order to keep this project doable in one semester, we have set our goal to successfully match 90% of reasonably legible characters. This goal may change in the future to adjust for the time constraint. Once the semester ends, work may continue on this project to expand it and have it recognize characters other than the lowercase alphabet, or potentially difficult-to-read handwriting. Ideally, the software might even be able to process the illegible penmanship of computer science undergraduates.
 
 In order to get a wide enough dataset, we plan to have various people across campus write out the alphabet in 26 boxes, scan the paper into a computer to be split into individual images per letter, and then fed into the neural network to train it.
+
+## Usage
+
+### Image Splitter
+
+'java -cp bin/ aihw.utils.ImageSplitter <IMAGE_TO_SPLIT>'
+
+26 folders will be created in res/tdata for each letter of the lowercase alphabet. The Nth image in each folder represents the corresponding letter for the Nth row of the image that was split.
