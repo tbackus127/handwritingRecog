@@ -11,12 +11,21 @@ public class Levenshtein{
 
     //Gets all of the possible contenders for words in the distance.
     //The list will be correctly sorted from a distance of 0 to max.
-    public static LinkedList getOptions(Word toCompare){
+    public static LinkedList<String> getOptions(Word toCompare){
+	LinkedList <String>dictionaryList = new LinkedList();
+	LinkedList <String>optionList = new LinkedList();
 	if(MAX_DISTANCE < 0){
 	    throw new IllegalArgumentException("Distance must be at least 0!");
 	}
 	try{
-	    File dictionary = new File(DICTIONARY_FILE_LOCATION);
+	    Scanner dictionary = new Scanner(
+					     new FileInputStream(
+					     new file(DICTIONARY_FILE_LOCATION)));
+	    while(dictionary.hasNextLine()){
+		dictionaryList.add(dictionary.nextLine());
+	    }
+	}catch(Exception e){
+	    e.printStackTrace();
 	}
     }
 
