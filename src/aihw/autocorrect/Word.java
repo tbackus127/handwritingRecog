@@ -5,13 +5,7 @@ import java.util.Arrays;
 public class Word{
 
     String word;
-
-    //The furthese edit distance to be considered a viable replacement.
-    //5 is currently a placegholder, it should be tweaked in the future.
-    private static final int DEFAULT_THRESHOLD = 5; 
-
-    //This allows us to change the threshold for consideration
-    private int threshold;
+    LinkedList<String> options = null;
     
     public Word(String word){
 	threshold = DEFAULT_THRESHOLD;
@@ -23,12 +17,12 @@ public class Word{
 	this.word = word;
     }
 
-    public int getThreshold(){
-	return threshold;
+    public int getString(){
+	return word;
     }
 
-    public static computeDistance(Word original, String possibility){
-	
+    public void levenshtein(){
+	options = Levenshtein.getOptions(this);
     }
 
 }
