@@ -248,14 +248,14 @@ public class ImageSplitter {
           + scanFile.getAbsolutePath() + "\"");
       return false;
     }
-    
-    final String[] exts = {"png", "jpg", "jpeg", "gif"};
-    for(int i = 0; i < exts.length; i++) {
-      if(scanFile.getName().endsWith(exts[i])) {
+
+    final String[] exts = { "png", "jpg", "jpeg", "gif" };
+    for (int i = 0; i < exts.length; i++) {
+      if (scanFile.getName().endsWith(exts[i])) {
         return true;
       }
     }
-    
+
     System.err.println("Image file must be .png, .jpg, .jpeg, or .gif");
     return false;
   }
