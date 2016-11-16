@@ -24,7 +24,7 @@ import javax.imageio.ImageIO;
 public class ImageSplitter {
 
   /** How many boxes are in a row on the scanned image. */
-  private static final int BOXES_PER_ROW = 28;
+  // private static final int BOXES_PER_ROW = 28;
 
   /** How many boxes are in a column on the scanned image. */
   private static final int BOXES_PER_COLUMN = 21;
@@ -147,8 +147,8 @@ public class ImageSplitter {
         System.out.println("Glyph@(" + originX + "," + originY + ")");
 
         // Create cropped sub-image
-        final BufferedImage glyphImage = sampleImg.getSubimage(originX,
-            originY, BOX_SIZE, BOX_SIZE);
+        final BufferedImage glyphImage = sampleImg.getSubimage(originX, originY,
+            BOX_SIZE, BOX_SIZE);
         result[imgCount] = new SplitImage((char) (imgCount % 26 + 'a'),
             glyphImage);
         imgCount++;
@@ -220,8 +220,8 @@ public class ImageSplitter {
         .format(new Date());
 
     System.out.println("Saving image #" + tCount);
-    File splImgFile = new File("res/tdata/" + ch + "/" + tCount + "-"
-        + timestamp + ".jpg");
+    File splImgFile = new File(
+        "res/tdata/" + ch + "/" + tCount + "-" + timestamp + ".jpg");
     splImgFile.getParentFile().mkdirs();
 
     try {

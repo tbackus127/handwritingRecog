@@ -10,14 +10,17 @@ Check it out at http://neuroph.sourceforge.net.
 
 package aihw.nnet;
 
-import java.io.*;
-import java.util.*;
-import neuroph-core-2.5.1;
-import neuroph-imgrec-2.5.1;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+import org.neuroph.core.NeuralNetwork;
+import org.neuroph.nnet.MultiLayerPerceptron;
 
 public class HWNeuralNet {
-  public static final File savedWeights =
-                                new File("../../../res/tdata/savedWeights.txt");
+
+  public static final File savedWeights = new File(
+      "../../../res/tdata/savedWeights.txt");
 
   // this parameter being passed into the MultiLayerPerceptron constructor is
   // the number of nodes within a layer. This can be changed, but we'd need to
@@ -26,7 +29,13 @@ public class HWNeuralNet {
   public static final NeuralNetwork nnet = new MultiLayerPerceptron(4);
 
   public static void main(String[] args) {
-    if (!savedWeights.exists()) savedWeights.createNewFile();
+    if (!savedWeights.exists()) try {
+      savedWeights.createNewFile();
+    }
+    catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     readSavedWeights();
     Scanner console = new Scanner(System.in);
     int operatingMode = menu(console);
