@@ -8,22 +8,27 @@ Thanks to all of the folks working on Neuroph.
 Check it out at http://neuroph.sourceforge.net.
 */
 
-package aihw.nnet;
+package src.aihw.nnet;
 
 import java.io.*;
+import java.awt.image.*;
 import java.util.*;
-import neuroph-core-2.5.1;
-import neuroph-imgrec-2.5.1;
+import org.neuroph.core.*;
+import org.neuroph.core.input.*;
+import org.neuroph.core.learning.*;
+import org.neuroph.nnet.*;
+
 
 public class HWNeuralNet {
+  // This file will be read on every run, and written to when we are training.
   public static final File savedWeights =
                                 new File("../../../res/tdata/savedWeights.txt");
 
-  // this parameter being passed into the MultiLayerPerceptron constructor is
+  // This parameter being passed into the MultiLayerPerceptron constructor is
   // the number of nodes within a layer. This can be changed, but we'd need to
-  // retrain the neural network after we change it. I picked 4 as an arbitrary
-  // starting point.
-  public static final NeuralNetwork nnet = new MultiLayerPerceptron(4);
+  // retrain the neural network after we change it. We will have 2209 inputs
+  // and 26 outputs.
+  public static final NeuralNetwork nnet = new Perceptron(2209, 26);
 
   public static void main(String[] args) {
     if (!savedWeights.exists()) savedWeights.createNewFile();
@@ -36,16 +41,18 @@ public class HWNeuralNet {
 
   public static void train() {
     // TODO:
-    // read input image file, using ImageSplitter
-    // train the network
+    // tell the network whether it was right (for each character)
+    // backpropagate
     // save weights to savedWeights
+	  DataSet trainingData = new DataSet(26);
   }
 
-  public static void processRealData() {
+  public static char read(BufferedImage img) {
     // TODO:
-    // read input image file using ImageSplitter
+    // make 2D pixel array
     // process data
     // output processed characters
+	return 'a';
   }
 
   public static void readSavedWeights() {
