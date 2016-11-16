@@ -10,51 +10,69 @@ Check it out at http://neuroph.sourceforge.net.
 
 package aihw.nnet;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 import org.neuroph.core.NeuralNetwork;
-import org.neuroph.nnet.MultiLayerPerceptron;
+import org.neuroph.core.data.DataSet;
+import org.neuroph.nnet.Perceptron;
+import org.neuroph.nnet.learning.PerceptronLearning;
 
 public class HWNeuralNet {
 
   public static final File savedWeights = new File(
       "../../../res/tdata/savedWeights.txt");
 
-  // this parameter being passed into the MultiLayerPerceptron constructor is
+  // This parameter being passed into the MultiLayerPerceptron constructor is
   // the number of nodes within a layer. This can be changed, but we'd need to
-  // retrain the neural network after we change it. I picked 4 as an arbitrary
-  // starting point.
-  public static final NeuralNetwork nnet = new MultiLayerPerceptron(4);
+  // retrain the neural network after we change it. We will have 2209 inputs
+  // and 26 outputs.
+  // Javadoc: http://neuroph.sourceforge.net/javadoc/index.html
+  public static final NeuralNetwork<PerceptronLearning> nnet = new Perceptron(
+      2209, 26);
 
   public static void main(String[] args) {
     if (!savedWeights.exists()) try {
       savedWeights.createNewFile();
     }
     catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     readSavedWeights();
     Scanner console = new Scanner(System.in);
     int operatingMode = menu(console);
-    if (operatingMode == 1) train();
+    
+    // TODO: get args
+    if (operatingMode == 1) train(null, 'a');
     else processRealData();
   }
 
-  public static void train() {
-    // TODO:
-    // read input image file, using ImageSplitter
-    // train the network
-    // save weights to savedWeights
+  private static void processRealData() {
+    // TODO: Make method
+
   }
 
-  public static void processRealData() {
+  public static void train(DataSet ds, char correctChar) {
     // TODO:
-    // read input image file using ImageSplitter
+    // tell the network whether it was right (for each character)
+    // backpropagate
+    // save weights to savedWeights
+
+    // I'll make a wrapper program that will train the NNet while running.
+    // It might be a good idea to not save after every training iteration
+    // instead, perhaps every 100 iterations? If I make the wrapper program,
+    // I'll take care of all of that. -- Tim
+    DataSet trainingData = new DataSet(26);
+  }
+
+  public static char read(BufferedImage img) {
+    // TODO:
+    // make 2D pixel array
     // process data
     // output processed characters
+    return 'a';
   }
 
   public static void readSavedWeights() {
