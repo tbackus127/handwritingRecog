@@ -102,6 +102,7 @@ public class ImageSplitter {
       if (splImg == null) break;
       saveImage(splImg.getChar(), splImg.getImage(), IMAGE_COUNTER++);
     }
+    System.out.println("Image split successfully.");
 
   }
 
