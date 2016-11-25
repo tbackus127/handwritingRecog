@@ -19,42 +19,51 @@ import org.neuroph.nnet.MultiLayerPerceptron;
 import aihw.utils.DataSetFactory;
 import aihw.utils.ImageSplitter;
 
+/**
+ * This class acts as a wrapper for the neural network.
+ * 
+ * @author Tim Backus tbackus127@gmail.com
+ * @author Jarred Durant EMAIL_HERE
+ * @author Tyler Fiacco EMAIL_HERE
+ * @author Eric Sakshaug EMAIL_HERE
+ *
+ */
 public class HWNeuralNet {
-  
- 
+
   /** The filename to load and save the network from/to. */
   public static final String NETWORK_FILENAME = "savedWeights.dat";
-  
+
   /** The network itself. */
   private MultiLayerPerceptron nnet = null;
-  
+
   /** The training data directory. */
   private final File tdataDir;
-  
+
   /**
    * Default constructor.
    */
-  public HWNeuralNet(File tdataDir) {
+  public HWNeuralNet(final File tdataDir) {
     this.tdataDir = tdataDir;
     this.nnet = new MultiLayerPerceptron(ImageSplitter.TRAINING_IMAGE_SIZE, 127, 26);
   }
-  
+
   /**
    * Trains the neural network automatically.
    */
   public void train() {
     try {
       this.nnet.learnInNewThread(DataSetFactory.getDataSet(this.tdataDir));
-    } catch (FileNotFoundException fnf) {
+    }
+    catch (FileNotFoundException fnf) {
       fnf.printStackTrace();
     }
   }
-  
-  public char recognizeCharacter(BufferedImage img) {
+
+  public char recognizeCharacter(final BufferedImage img) {
     // TODO: Probably just get a number and add it to 'a'.
     return 'a';
   }
-  
+
   /**
    * Saves the network to a file.
    */
@@ -62,7 +71,7 @@ public class HWNeuralNet {
     this.nnet.stopLearning();
     this.nnet.save(NETWORK_FILENAME);
   }
-  
+
   /**
    * Loads the network from a file.
    */
