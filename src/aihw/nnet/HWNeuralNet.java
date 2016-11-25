@@ -11,56 +11,36 @@ Check it out at http://neuroph.sourceforge.net.
 package aihw.nnet;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.data.DataSet;
-import org.neuroph.nnet.learning.PerceptronLearning;
+import org.neuroph.nnet.MultiLayerPerceptron;
+import org.neuroph.nnet.learning.BackPropagation;
+
 
 public class HWNeuralNet {
 
+  // Neuroph Javadoc: http://neuroph.sourceforge.net/javadoc/index.html
+  
   private static final String NETWORK_FILENAME = "savedWeights.dat";
+  
+  private NeuralNetwork<BackPropagation> nnet = null;
 
-  // This parameter being passed into the MultiLayerPerceptron constructor is
-  // the number of nodes within a layer. This can be changed, but we'd need to
-  // retrain the neural network after we change it. We will have 2209 inputs
-  // and 26 outputs.
-  // Javadoc: http://neuroph.sourceforge.net/javadoc/index.html
-  private NeuralNetwork<PerceptronLearning> nnet = null;
-
-  public HWNeuralNet() {}
-
-  // public static void main(String[] args) {
-  // if (!savedWeights.exists()) try {
-  // savedWeights.createNewFile();
-  // }
-  // catch (IOException e) {
-  // e.printStackTrace();
-  // }
-  // readSavedWeights();
-  // Scanner console = new Scanner(System.in);
-  // int operatingMode = menu(console);
-  //
-  // // TODO: get args
-  // if (operatingMode == 1) train(null, 'a');
-  // else processRealData();
-  // }
-
-  // private static void processRealData() {
-  // TODO: Make method
-  // What will this method do?
-
-  // }
+  public HWNeuralNet() {
+    
+    final ArrayList<Integer> layerList = new ArrayList<Integer>();
+    layerList.add(2209);
+    layerList.add(127);
+    layerList.add(26);
+    this.nnet = new MultiLayerPerceptron(layerList);
+  }
 
   public void train(DataSet ds, char correctChar) {
     // TODO:
     // tell the network whether it was right (for each character)
     // backpropagate
     // save weights to savedWeights
-
-    // I'll make a wrapper program that will train the NNet while running.
-    // It might be a good idea to not save after every training iteration
-    // instead, perhaps every 100 iterations? If I make the wrapper program,
-    // I'll take care of all of that. -- Tim
     System.out.println("Trained on " + correctChar);
     DataSet trainingData = new DataSet(26);
   }
