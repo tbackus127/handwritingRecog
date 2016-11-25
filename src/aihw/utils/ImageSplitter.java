@@ -41,14 +41,12 @@ public class ImageSplitter {
   private static final int CROP_AMOUNT = 4;
   
   /** The length and width of the training images. */
-  public static final int TRAINING_IMAGE_SIZE = BOX_SIZE - (CROP_AMOUNT * 2);
+  public static final int TRAINING_IMAGE_SIZE = (BOX_SIZE - (CROP_AMOUNT << 1)) * (BOX_SIZE - (CROP_AMOUNT << 1));
   
   /** An image counter to prevent overwrites. */
   private static int IMAGE_COUNTER = 0;
   
-  /**
-   * The amount of color a pixel needs to be turned white by the threshold operation.
-   */
+  /** The amount of color a pixel needs to be turned white by the threshold operation. */
   private static int COLOR_THRESHOLD = 215;
   
   /**
@@ -146,7 +144,8 @@ public class ImageSplitter {
         System.out.println("Glyph@(" + originX + "," + originY + ")");
         
         // Create cropped sub-image
-        final BufferedImage glyphImage = sampleImg.getSubimage(originX, originY, BOX_SIZE - (CROP_AMOUNT * 2), BOX_SIZE - (CROP_AMOUNT * 2));
+        final BufferedImage glyphImage = sampleImg.getSubimage(originX, originY, BOX_SIZE - (CROP_AMOUNT * 2),
+            BOX_SIZE - (CROP_AMOUNT * 2));
         result[imgCount] = new SplitImage((char) (imgCount % 26 + 'a'), glyphImage);
         imgCount++;
       }

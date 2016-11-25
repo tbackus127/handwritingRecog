@@ -1,80 +1,72 @@
 /*
-Names: Jarred Durant, Tim Backus, Eric Sakshaug, Tyler Fiacco
-Course: CIS421 -- Artificial Intelligence
-Instructor: Dr. Laura Grabowski
-Handwriting Recognition with Neural Networks
-
-Thanks to all of the folks working on Neuroph.
-Check it out at http://neuroph.sourceforge.net.
-*/
+ * Names: Jarred Durant, Tim Backus, Eric Sakshaug, Tyler Fiacco
+ * Course: CIS421 -- Artificial Intelligence
+ * Instructor: Dr. Laura Grabowski 
+ * Handwriting Recognition with Neural Networks
+ * Thanks to all of the folks working on Neuroph. Check it out at http://neuroph.sourceforge.net.
+ * Neuroph Javadoc: http://neuroph.sourceforge.net/javadoc/index.html
+ */
 
 package aihw.nnet;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import org.neuroph.core.NeuralNetwork;
-import org.neuroph.core.data.DataSet;
 import org.neuroph.nnet.MultiLayerPerceptron;
-import org.neuroph.nnet.learning.BackPropagation;
 
+import aihw.utils.DataSetFactory;
 import aihw.utils.ImageSplitter;
 
-
 public class HWNeuralNet {
-
-  // Neuroph Javadoc: http://neuroph.sourceforge.net/javadoc/index.html
   
+ 
+  /** The filename to load and save the network from/to. */
   private static final String NETWORK_FILENAME = "savedWeights.dat";
   
-  private NeuralNetwork<BackPropagation> nnet = null;
-
-  public HWNeuralNet() {
-    
-    final ArrayList<Integer> layerList = new ArrayList<Integer>();
-    layerList.add(ImageSplitter.TRAINING_IMAGE_SIZE);
-    layerList.add(127);
-    layerList.add(26);
-    this.nnet = new MultiLayerPerceptron(layerList);
+  /** The network itself. */
+  private MultiLayerPerceptron nnet = null;
+  
+  /** The training data directory. */
+  private final File tdataDir;
+  
+  /**
+   * Default constructor.
+   */
+  public HWNeuralNet(File tdataDir) {
+    this.tdataDir = tdataDir;
+    this.nnet = new MultiLayerPerceptron(ImageSplitter.TRAINING_IMAGE_SIZE, 127, 26);
   }
-
-  public void train(DataSet ds, char correctChar) {
-    // TODO:
-    // tell the network whether it was right (for each character)
-    // backpropagate
-    // save weights to savedWeights
-    System.out.println("Trained on " + correctChar);
-    DataSet trainingData = new DataSet(26);
+  
+  /**
+   * Trains the neural network automatically.
+   */
+  public void train() {
+    try {
+      this.nnet.learn(DataSetFactory.getDataSet(this.tdataDir));
+    } catch (FileNotFoundException fnf) {
+      fnf.printStackTrace();
+    }
   }
-
+  
   public char recognizeCharacter(BufferedImage img) {
-    // TODO:
-    // make 2D pixel array
-    // process data
-    // output processed characters
+    // TODO: Probably just get a number and add it to 'a'.
     return 'a';
   }
-
+  
+  /**
+   * Saves the network to a file.
+   */
   public void saveToFile() {
-    // TODO: Save weights to text file
-    System.out.println("Saved network");
+    this.nnet.save(NETWORK_FILENAME);
   }
-
+  
+  /**
+   * Loads the network from a file.
+   */
   public void loadFromFile() {
-    // TODO: load saved weights into nnet
     System.out.println("Loaded network");
-    this.nnet = NeuralNetwork.createFromFile(NETWORK_FILENAME);
+    this.nnet = (MultiLayerPerceptron) NeuralNetwork.createFromFile(NETWORK_FILENAME);
   }
-
-  // public static int menu(Scanner console) {
-  // System.out.println("What do you plan to do?");
-  // System.out.println("1.) Train the neural network.");
-  // System.out.println("2.) Give the neural network real data to process.");
-  // int choice = console.nextInt();
-  // while (choice < 1 || choice > 2) {
-  // System.out.println("Please choose a valid option!");
-  // choice = console.nextInt();
-  // }
-  // return choice;
-  // }
 }
