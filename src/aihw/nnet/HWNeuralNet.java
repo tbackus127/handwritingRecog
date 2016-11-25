@@ -23,7 +23,7 @@ public class HWNeuralNet {
   
  
   /** The filename to load and save the network from/to. */
-  private static final String NETWORK_FILENAME = "savedWeights.dat";
+  public static final String NETWORK_FILENAME = "savedWeights.dat";
   
   /** The network itself. */
   private MultiLayerPerceptron nnet = null;
@@ -44,7 +44,7 @@ public class HWNeuralNet {
    */
   public void train() {
     try {
-      this.nnet.learn(DataSetFactory.getDataSet(this.tdataDir));
+      this.nnet.learnInNewThread(DataSetFactory.getDataSet(this.tdataDir));
     } catch (FileNotFoundException fnf) {
       fnf.printStackTrace();
     }
@@ -59,6 +59,7 @@ public class HWNeuralNet {
    * Saves the network to a file.
    */
   public void saveToFile() {
+    this.nnet.stopLearning();
     this.nnet.save(NETWORK_FILENAME);
   }
   
