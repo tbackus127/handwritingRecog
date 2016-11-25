@@ -18,6 +18,8 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.BackPropagation;
 
+import aihw.utils.ImageSplitter;
+
 
 public class HWNeuralNet {
 
@@ -30,7 +32,7 @@ public class HWNeuralNet {
   public HWNeuralNet() {
     
     final ArrayList<Integer> layerList = new ArrayList<Integer>();
-    layerList.add(2209);
+    layerList.add(ImageSplitter.TRAINING_IMAGE_SIZE);
     layerList.add(127);
     layerList.add(26);
     this.nnet = new MultiLayerPerceptron(layerList);
