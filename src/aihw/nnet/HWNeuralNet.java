@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.neuroph.core.NeuralNetwork;
+import org.neuroph.core.Neuron;
 import org.neuroph.nnet.MultiLayerPerceptron;
 
 import aihw.utils.DataSetFactory;
@@ -29,16 +30,16 @@ import aihw.utils.ImageSplitter;
  *
  */
 public class HWNeuralNet {
-
+  
   /** The filename to load and save the network from/to. */
   public static final String NETWORK_FILENAME = "savedWeights.dat";
-
+  
   /** The network itself. */
   private MultiLayerPerceptron nnet = null;
-
+  
   /** The training data directory. */
   private final File tdataDir;
-
+  
   /**
    * Default constructor.
    */
@@ -46,24 +47,32 @@ public class HWNeuralNet {
     this.tdataDir = tdataDir;
     this.nnet = new MultiLayerPerceptron(ImageSplitter.TRAINING_IMAGE_SIZE, 127, 26);
   }
-
+  
   /**
    * Trains the neural network automatically.
    */
   public void train() {
     try {
       this.nnet.learnInNewThread(DataSetFactory.getDataSet(this.tdataDir));
-    }
-    catch (FileNotFoundException fnf) {
+    } catch (FileNotFoundException fnf) {
       fnf.printStackTrace();
     }
   }
-
+  
   public char recognizeCharacter(final BufferedImage img) {
     // TODO: Probably just get a number and add it to 'a'.
     return 'a';
   }
-
+  
+  /**
+   * Gets the output of the network.
+   * 
+   * @return a double[] of size 26, one for each letter of the alphabet.
+   */
+  public double[] getOutput() {
+    return this.nnet.getOutput();
+  }
+  
   /**
    * Saves the network to a file.
    */
@@ -71,7 +80,7 @@ public class HWNeuralNet {
     this.nnet.stopLearning();
     this.nnet.save(NETWORK_FILENAME);
   }
-
+  
   /**
    * Loads the network from a file.
    */

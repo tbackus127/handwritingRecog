@@ -3,6 +3,7 @@ package aihw.nnet;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -46,6 +47,7 @@ public class NNControlPanel extends JPanel {
     setSize(getPreferredSize());
 
     // Save and Quit button
+    // TODO: Make smaller
     final JButton stopButton = new JButton("Save and Quit");
     stopButton.addActionListener(new ActionListener() {
 
@@ -89,5 +91,4 @@ public class NNControlPanel extends JPanel {
   public Dimension getMaximumSize() {
     return getPreferredSize();
   }
-
 }
