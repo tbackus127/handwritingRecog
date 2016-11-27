@@ -217,7 +217,7 @@ public class ImageSplitter {
     final String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-ss").format(new Date());
 
     System.out.println("Saving image #" + tCount);
-    File splImgFile = new File("res/tdata/" + ch + "/" + tCount + "-" + timestamp + ".jpg");
+    File splImgFile = new File("res/tdata/" + ch + "/" + tCount + "-" + timestamp + ".png");
     splImgFile.getParentFile().mkdirs();
 
     try {

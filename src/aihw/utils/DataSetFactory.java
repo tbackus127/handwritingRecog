@@ -57,36 +57,40 @@ public class DataSetFactory {
       final File[] trainingImages = charFolder.listFiles();
       for (File imgFile : trainingImages) {
 
-        final double[] pixelInputs = new double[ImageSplitter.TRAINING_IMAGE_SIZE];
-        final double[] pixelOutputs = new double[26];
 
-        // Read the image
-        BufferedImage img;
-        try {
-          img = ImageIO.read(imgFile);
-        }
-        catch (IOException ioe) {
-          ioe.printStackTrace();
-          return null;
-        }
-
-        // Get the pixels of the image
-        int[] imgPixels = img.getRGB(0, 0, img.getWidth(), img.getHeight(), null, 0, img.getWidth());
-        for (int i = 0; i < imgPixels.length; i++) {
-          final int pxVal = imgPixels[i];
-
-          // Map white to 1 and black to 0 for the training data
-          final int bv = pxVal & 0x000000FF;
-          pixelInputs[i] = (bv >= 127) ? 1.0 : 0.0;
-        }
-
-        // Pack up the data set row and add it.
-        pixelOutputs[charNum] = 1.0;
-        final DataSetRow dsRow = new DataSetRow(pixelInputs, pixelOutputs);
-        result.addRow(dsRow);
+        result.addRow(getDataRow(imgFile, charNum));
       }
     }
 
     return result;
+  }
+  
+  public static DataSetRow getDataRow(File imgFile, int charNum) {
+    final double[] pixelInputs = new double[ImageSplitter.TRAINING_IMAGE_SIZE];
+    final double[] pixelOutputs = new double[26];
+
+    // Read the image
+    BufferedImage img;
+    try {
+      img = ImageIO.read(imgFile);
+    }
+    catch (IOException ioe) {
+      ioe.printStackTrace();
+      return null;
+    }
+
+    // Get the pixels of the image
+    int[] imgPixels = img.getRGB(0, 0, img.getWidth(), img.getHeight(), null, 0, img.getWidth());
+    for (int i = 0; i < imgPixels.length; i++) {
+      final int pxVal = imgPixels[i];
+
+      // Map white to 0 and black to 1 for the training data
+      final int bv = pxVal & 0x000000FF;
+      pixelInputs[i] = (bv >= 127) ? 0.0 : 1.0;
+    }
+
+    // Pack up the data set row and add it.
+    pixelOutputs[charNum] = 1.0;
+    return new DataSetRow(pixelInputs, pixelOutputs);
   }
 }

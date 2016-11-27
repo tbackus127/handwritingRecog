@@ -9,12 +9,10 @@
 
 package aihw.nnet;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.neuroph.core.NeuralNetwork;
-import org.neuroph.core.Neuron;
 import org.neuroph.nnet.MultiLayerPerceptron;
 
 import aihw.utils.DataSetFactory;
@@ -44,14 +42,17 @@ public class HWNeuralNet {
    * Default constructor.
    */
   public HWNeuralNet(final File tdataDir) {
+    System.out.print("Creating network...");
     this.tdataDir = tdataDir;
     this.nnet = new MultiLayerPerceptron(ImageSplitter.TRAINING_IMAGE_SIZE, 127, 26);
+    System.out.println(" DONE");
   }
   
   /**
    * Trains the neural network automatically.
    */
   public void train() {
+    System.out.println("Training network...");
     try {
       this.nnet.learnInNewThread(DataSetFactory.getDataSet(this.tdataDir));
     } catch (FileNotFoundException fnf) {
@@ -59,9 +60,11 @@ public class HWNeuralNet {
     }
   }
   
-  public char recognizeCharacter(final BufferedImage img) {
-    // TODO: Probably just get a number and add it to 'a'.
-    return 'a';
+  public NNetResult recognizeCharacter(final File imgFile) {
+    final double[] recInput = DataSetFactory.getDataRow(imgFile, 0).getInput();
+    this.nnet.setInput(recInput);
+    this.nnet.calculate();
+    return getBestMatch(this.nnet.getOutput());
   }
   
   /**
@@ -85,7 +88,26 @@ public class HWNeuralNet {
    * Loads the network from a file.
    */
   public void loadFromFile() {
-    System.out.println("Loaded network");
+    System.out.print("Loading network...");
     this.nnet = (MultiLayerPerceptron) NeuralNetwork.createFromFile(NETWORK_FILENAME);
+    System.out.println(" DONE");
+  }
+  
+  /**
+   * Encodes the neural network's output as a character and its certainty.
+   * 
+   * @param data the network's output array.
+   * @return a NNetResult struct containing a char and a double.
+   */
+  private NNetResult getBestMatch(double[] data) {
+    int bestIndex = -1;
+    double bestValue = 0.0D;
+    for (int i = 0; i < data.length; i++) {
+      if (bestValue < data[i]) {
+        bestIndex = i;
+        bestValue = data[i];
+      }
+    }
+    return new NNetResult((char) (bestIndex + 'a'), bestValue);
   }
 }

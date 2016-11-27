@@ -3,7 +3,6 @@ package aihw.nnet;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,6 +28,7 @@ public class NNControlPanel extends JPanel {
   private final HWNeuralNet nnet;
 
   /** Reference to the parent JFrame. */
+  @SuppressWarnings("unused")
   private final JFrame frame;
 
   /**
