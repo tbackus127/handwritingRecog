@@ -20,8 +20,7 @@ public class NNTrainer {
   /**
    * Main method.
    * 
-   * @param args
-   *          runtime arguments. Ignored.
+   * @param args runtime arguments. Ignored.
    */
   public static void main(String[] args) {
 

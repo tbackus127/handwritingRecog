@@ -28,16 +28,16 @@ import aihw.utils.ImageSplitter;
  *
  */
 public class HWNeuralNet {
-  
+
   /** The filename to load and save the network from/to. */
   public static final String NETWORK_FILENAME = "savedWeights.dat";
-  
+
   /** The network itself. */
   private MultiLayerPerceptron nnet = null;
-  
+
   /** The training data directory. */
   private final File tdataDir;
-  
+
   /**
    * Default constructor.
    */
@@ -47,7 +47,7 @@ public class HWNeuralNet {
     this.nnet = new MultiLayerPerceptron(ImageSplitter.TRAINING_IMAGE_SIZE, 127, 26);
     System.out.println(" DONE");
   }
-  
+
   /**
    * Trains the neural network automatically.
    */
@@ -55,18 +55,25 @@ public class HWNeuralNet {
     System.out.println("Training network...");
     try {
       this.nnet.learnInNewThread(DataSetFactory.getDataSet(this.tdataDir));
-    } catch (FileNotFoundException fnf) {
+    }
+    catch (FileNotFoundException fnf) {
       fnf.printStackTrace();
     }
   }
-  
+
+  /**
+   * Recognizes a character in an image.
+   * 
+   * @param imgFile the file handle with the image.
+   * @return a NNetResult with the character and confidence level.
+   */
   public NNetResult recognizeCharacter(final File imgFile) {
     final double[] recInput = DataSetFactory.getDataRow(imgFile, 0).getInput();
     this.nnet.setInput(recInput);
     this.nnet.calculate();
     return getBestMatch(this.nnet.getOutput());
   }
-  
+
   /**
    * Gets the output of the network.
    * 
@@ -75,7 +82,7 @@ public class HWNeuralNet {
   public double[] getOutput() {
     return this.nnet.getOutput();
   }
-  
+
   /**
    * Saves the network to a file.
    */
@@ -83,7 +90,7 @@ public class HWNeuralNet {
     this.nnet.stopLearning();
     this.nnet.save(NETWORK_FILENAME);
   }
-  
+
   /**
    * Loads the network from a file.
    */
@@ -92,7 +99,7 @@ public class HWNeuralNet {
     this.nnet = (MultiLayerPerceptron) NeuralNetwork.createFromFile(NETWORK_FILENAME);
     System.out.println(" DONE");
   }
-  
+
   /**
    * Encodes the neural network's output as a character and its certainty.
    * 
