@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * 
  * @author Tim Backus tbackus127@gmail.com
  * @author Jarred Durant EMAIL_HERE
- * @author Tyler Fiacco EMAIL_HERE
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
  * @author Eric Sakshaug EMAIL_HERE
  *
  */
