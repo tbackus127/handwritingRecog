@@ -86,12 +86,14 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
 	JPanel p = new JPanel(new BorderLayout());
 	frame.add(p);
         // Dimensions of the window in pixels:
-        frame.setSize(701, 526);
+        frame.setSize(701, 626);
         // Quit the program when the window is closed:
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // The window will contain only our panel:
         p.add(new Drawing(), BorderLayout.CENTER);
-	p.add(new JButton("Done drawing"), BorderLayout.SOUTH);
+	JButton done = new JButton("Done drawing");
+	done.setSize(new Dimension(100, 701));
+	p.add(done, BorderLayout.SOUTH);
         // Make the window visible:
         frame.setVisible(true);
     }
