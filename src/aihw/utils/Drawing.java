@@ -1,10 +1,12 @@
 import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.GeneralPath;
 import java.util.LinkedList;
 import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -26,10 +28,6 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
         addMouseMotionListener(this);
     }
 
-    ///// DRAWING
-    /**
-     * Draw the disks.
-     */
     @Override
     public void paintComponent(Graphics gfx) {
         // This stuff is standard, and should be in any paintComponent method. 
@@ -85,12 +83,15 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     public static void main(String[] args) {
         // Construct a new window:
         JFrame frame = new JFrame("Draw a letter!");
+	JPanel p = new JPanel(new BorderLayout());
+	frame.add(p);
         // Dimensions of the window in pixels:
-        frame.setSize(640, 480);
+        frame.setSize(701, 526);
         // Quit the program when the window is closed:
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // The window will contain only our panel:
-        frame.add(new Drawing());
+        p.add(new Drawing(), BorderLayout.CENTER);
+	p.add(new JButton("Done drawing"), BorderLayout.SOUTH);
         // Make the window visible:
         frame.setVisible(true);
     }
