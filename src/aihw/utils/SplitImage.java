@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  * character the image is of.
  * 
  * @author Tim Backus tbackus127@gmail.com
- * @author Jarred Durant EMAIL_HERE
+ * @author Jarred Durant jarreddurant14@gmail.com
  * @author Tyler Fiacco EMAIL_HERE
  * @author Eric Sakshaug EMAIL_HERE
  * 
