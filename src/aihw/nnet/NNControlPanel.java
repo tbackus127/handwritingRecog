@@ -43,9 +43,13 @@ public class NNControlPanel extends JPanel {
     this.frame = frame;
     this.nnet = n;
     
-    // Set the size of the JFrame
+    // Set the properties of the JFrame
     frame.setSize(new Dimension(640, 480));
     frame.add(this);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setResizable(false);
+    frame.setVisible(true);
     
     // Save and Quit button
     final JButton trainButton = new JButton("Train neural network");
@@ -55,9 +59,21 @@ public class NNControlPanel extends JPanel {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        TrainerControlPanel tcp = new TrainerControlPanel(new JFrame());
+
+        final JFrame trainFrame = new JFrame("Training Neural Network");
+        TrainerControlPanel tcp = new TrainerControlPanel(nnet, trainFrame);
       }
 
+    });
+    
+    recogButton.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        final JFrame recogFrame = new JFrame("Testing Neural Network");
+        RecogControlPanel rcp = new RecogControlPanel(nnet, recogFrame);
+        
+      }
     });
     add(trainButton, BorderLayout.WEST);
     add(recogButton, BorderLayout.EAST);

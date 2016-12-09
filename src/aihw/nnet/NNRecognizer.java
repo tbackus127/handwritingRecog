@@ -18,9 +18,8 @@ public class NNRecognizer {
   /**
    * Default constructor.
    */
-  public NNRecognizer() {
-    this.nnet = new HWNeuralNet(new File("res/tdata"));
-    this.nnet.loadFromFile();
+  public NNRecognizer(HWNeuralNet n) {
+    this.nnet = n;
   }
 
   /**
@@ -40,7 +39,9 @@ public class NNRecognizer {
    */
   public static void main(String[] args) {
     final NNRecognizer rec = new NNRecognizer();
+  }
 
+ public static void recognizeTrainingData() {
     // Get all files (directories only) in 'res/tdata'
     final File[] tdataDirs = new File("res/tdata").listFiles(new FilenameFilter() {
 

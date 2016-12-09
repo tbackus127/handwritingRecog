@@ -13,7 +13,8 @@ public class TrainerControlPanel extends JPanel {
 
     /** The serial version number. */
     private static final long serialVersionUID = 1L;
-
+    
+    private final HWNeuralNet nnet;
 
     /** Reference to the parent JFrame. */
     @SuppressWarnings("unused")
@@ -25,13 +26,14 @@ public class TrainerControlPanel extends JPanel {
      * @param n reference to the neural network.
      * @param frame reference to the parent JFrame.
      */
-    public TrainerControlPanel(final JFrame frame) {
+    public TrainerControlPanel(final HWNeuralNet n, final JFrame frame) {
       super(new BorderLayout(), true);
 
       this.frame = frame;
+      this.nnet = n;
       
       // Set the size of the JFrame
-      frame.setSize(new Dimension(640, 480));
+      frame.setSize(new Dimension(320, 120));
       frame.add(this);
       
       // Save and Quit button
@@ -47,6 +49,7 @@ public class TrainerControlPanel extends JPanel {
         }
       });
       add(stopButton, BorderLayout.SOUTH);
+      NNTrainer.run(nnet);
       frame.setVisible(true);
     }
 
@@ -76,5 +79,8 @@ public class TrainerControlPanel extends JPanel {
      * @return a Dimension object with length and width.
      */
     @Override
+    public Dimension getMaximumSize() {
+      return getPreferredSize();
+    }
 
 }

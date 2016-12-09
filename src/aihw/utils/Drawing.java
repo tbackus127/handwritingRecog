@@ -82,7 +82,7 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     public void mouseMoved(MouseEvent me) {        
     }
 
-    public static void main(String[] args) {
+    public void run() {
         // Construct a new window:
         JFrame frame = new JFrame("Draw a letter!");
         JPanel p = new JPanel(new BorderLayout());
