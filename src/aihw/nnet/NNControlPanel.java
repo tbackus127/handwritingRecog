@@ -48,19 +48,19 @@ public class NNControlPanel extends JPanel {
     frame.add(this);
     
     // Save and Quit button
-    final JButton stopButton = new JButton("Save and Quit");
+    final JButton trainButton = new JButton("Train neural network");
+    final JButton recogButton = new JButton("Recognize input characters");
 
-    stopButton.addActionListener(new ActionListener() {
+    trainButton.addActionListener(new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        nnet.saveToFile();
-        stopButton.setEnabled(false);
-        stopButton.setText("Stopped");
-        frame.dispose();
+        TrainerControlPanel tcp = new TrainerControlPanel(new JFrame());
       }
+
     });
-    add(stopButton, BorderLayout.SOUTH);
+    add(trainButton, BorderLayout.WEST);
+    add(recogButton, BorderLayout.EAST);
     frame.setVisible(true);
   }
 

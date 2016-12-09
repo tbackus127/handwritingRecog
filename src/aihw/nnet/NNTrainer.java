@@ -22,11 +22,9 @@ public class NNTrainer {
    * 
    * @param args runtime arguments. Ignored.
    */
-  public static void main(String[] args) {
+  public static void run(HWNeuralNet nnet) {
 
     System.out.println("Training network, press \"Save and Quit\" to stop.");
-
-    final HWNeuralNet nnet = new HWNeuralNet(new File("res/tdata"));
 
     // Free up the Event Dispatch Thread
     SwingUtilities.invokeLater(new Runnable() {
