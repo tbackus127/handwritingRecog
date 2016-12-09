@@ -1,5 +1,5 @@
 
-package aihw.nnet;
+package src.aihw.nnet;
 
 import java.io.File;
 import java.io.FilenameFilter;

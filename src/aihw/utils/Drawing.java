@@ -1,3 +1,5 @@
+package src.aihw.utils;
+
 import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
@@ -83,8 +85,8 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     public static void main(String[] args) {
         // Construct a new window:
         JFrame frame = new JFrame("Draw a letter!");
-	JPanel p = new JPanel(new BorderLayout());
-	frame.add(p);
+        JPanel p = new JPanel(new BorderLayout());
+        frame.add(p);
         // Dimensions of the window in pixels:
         frame.setSize(701, 626);
         // Quit the program when the window is closed:

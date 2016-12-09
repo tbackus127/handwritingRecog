@@ -1,5 +1,5 @@
 
-package aihw.utils;
+package src.aihw.utils;
 
 import java.awt.image.BufferedImage;
 

@@ -42,13 +42,14 @@ public class NNControlPanel extends JPanel {
 
     this.frame = frame;
     this.nnet = n;
-
+    
     // Set the size of the JFrame
-    setSize(getPreferredSize());
-
+    frame.setSize(new Dimension(640, 480));
+    frame.add(this);
+    
     // Save and Quit button
-    // TODO: Make smaller
     final JButton stopButton = new JButton("Save and Quit");
+
     stopButton.addActionListener(new ActionListener() {
 
       @Override
@@ -59,7 +60,7 @@ public class NNControlPanel extends JPanel {
         frame.dispose();
       }
     });
-    add(stopButton);
+    add(stopButton, BorderLayout.SOUTH);
     frame.setVisible(true);
   }
 
@@ -70,7 +71,7 @@ public class NNControlPanel extends JPanel {
    */
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(240, 180);
+    return new Dimension(640, 480);
   }
 
   /**
