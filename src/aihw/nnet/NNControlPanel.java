@@ -1,5 +1,5 @@
 
-package aihw.nnet;
+package src.aihw.nnet;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -60,6 +60,7 @@ public class NNControlPanel extends JPanel {
       }
     });
     add(stopButton);
+    frame.setVisible(true);
   }
 
   /**
