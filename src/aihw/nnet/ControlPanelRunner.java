@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 public class ControlPanelRunner {
 
   public static void main(String[] args) throws FileNotFoundException {
-    HWNeuralNet nnet = new HWNeuralNet(new File("res/tdata"));
+    HWNeuralNet nnet = new HWNeuralNet(new File("res/tdata/"));
     NNControlPanel cp = new NNControlPanel(nnet, new JFrame());
   }
 

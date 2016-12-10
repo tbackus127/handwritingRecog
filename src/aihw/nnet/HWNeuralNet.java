@@ -44,7 +44,9 @@ public class HWNeuralNet {
   public HWNeuralNet(final File tdataDir) {
     System.out.print("Creating network...");
     this.tdataDir = tdataDir;
-    this.nnet = new MultiLayerPerceptron(ImageSplitter.TRAINING_IMAGE_SIZE, 127, 26);
+    System.out.println(new File(NETWORK_FILENAME).getAbsolutePath());
+    loadFromFile();
+    //this.nnet = new MultiLayerPerceptron(ImageSplitter.TRAINING_IMAGE_SIZE, 127, 26);
     System.out.println(" DONE");
   }
 

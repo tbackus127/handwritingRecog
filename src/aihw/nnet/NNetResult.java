@@ -25,6 +25,10 @@ public class NNetResult {
     this.character = c;
     this.certainty = d;
   }
+  
+  public String toString() {
+    return "" + character + " at " + certainty + " certainty";
+  }
 
   /**
    * Gets the character.

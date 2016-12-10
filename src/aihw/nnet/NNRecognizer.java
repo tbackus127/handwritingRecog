@@ -3,6 +3,7 @@ package src.aihw.nnet;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.FileNotFoundException;
 
 /**
  * This class handles recognizing characters from images via the neural network.
@@ -32,16 +33,7 @@ public class NNRecognizer {
     return this.nnet.recognizeCharacter(image);
   }
 
-  /**
-   * Main method.
-   * 
-   * @param args runtime args, ignored.
-   */
-  public static void main(String[] args) {
-    final NNRecognizer rec = new NNRecognizer();
-  }
-
- public static void recognizeTrainingData() {
+ public void recognizeTrainingData() {
     // Get all files (directories only) in 'res/tdata'
     final File[] tdataDirs = new File("res/tdata").listFiles(new FilenameFilter() {
 
@@ -60,7 +52,7 @@ public class NNRecognizer {
 
       // For all character images in each letter folder
       for (File charImg : charFiles) {
-        final NNetResult res = rec.recognize(charImg);
+        final NNetResult res = this.recognize(charImg);
 
         // Count correctly recognized characters
         if (res.getCharacter() == (charNum + 'a')) {
