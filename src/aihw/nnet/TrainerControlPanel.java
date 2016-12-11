@@ -1,3 +1,15 @@
+/**
+ * This class is a GUI for the trainer portion of the network.
+ * It automatically trains the network from the given training data,
+ * and provides an option to save and quit.
+ * 
+ * @author Tim Backus tbackus127@gmail.com
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug EMAIL_HERE
+ *
+ */
+
 package src.aihw.nnet;
 
 import java.awt.BorderLayout;

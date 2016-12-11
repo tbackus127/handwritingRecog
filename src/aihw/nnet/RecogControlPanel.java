@@ -1,3 +1,15 @@
+/**
+ * This class is a GUI for the recognizer portion of the network.
+ * It provides options to draw a character, recognize the network's
+ * training data, or read an image file.
+ * 
+ * @author Tim Backus tbackus127@gmail.com
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug EMAIL_HERE
+ *
+ */
+
 package src.aihw.nnet;
 
 import java.awt.BorderLayout;
@@ -16,12 +28,12 @@ import javax.swing.JTextField;
 
 import src.aihw.utils.Drawing;
 
-
 public class RecogControlPanel extends JPanel {
 
   /** The serial version number. */
   private static final long serialVersionUID = 1L;
-  
+
+  /** Reference to the neural network. */
   private final HWNeuralNet nnet;
 
   /** Reference to the parent JFrame. */
@@ -38,7 +50,6 @@ public class RecogControlPanel extends JPanel {
     frame.setSize(new Dimension(480, 320));
     frame.add(this);
     
-    // Save and Quit button
     final JButton drawButton = new JButton("Draw characters");
     final JButton trainingButton = new JButton("Recognize characters from training data");
     final JButton fileButton = new JButton("Get characters from file");

@@ -1,5 +1,5 @@
 
-package aihw.autocorrect;
+package src.aihw.autocorrect;
 
 import java.util.LinkedList;
 

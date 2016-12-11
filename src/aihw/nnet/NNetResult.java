@@ -5,6 +5,9 @@ package src.aihw.nnet;
  * This class handles results from the neural network.
  * 
  * @author Tim Backus tbackus127@gmail.com
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug EMAIL_HERE
  *
  */
 public class NNetResult {

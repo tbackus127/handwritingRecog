@@ -1,6 +1,15 @@
+/**
+ * This is our main class -- it initializes a neural net and opens a GUI.
+ * 
+ * @author Tim Backus tbackus127@gmail.com
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug EMAIL_HERE
+ *
+ */
+
 package src.aihw.nnet;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import javax.swing.JFrame;

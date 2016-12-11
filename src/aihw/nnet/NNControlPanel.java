@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  * This class contains the controls for the neural network.
  * 
  * @author Tim Backus tbackus127@gmail.com
- * @author Jarred Durant EMAIL_HERE
+ * @author Jarred Durant jarreddurant14@gmail.com
  * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
  * @author Eric Sakshaug EMAIL_HERE
  *
@@ -51,7 +51,6 @@ public class NNControlPanel extends JPanel {
     frame.setResizable(false);
     frame.setVisible(true);
     
-    // Save and Quit button
     final JButton trainButton = new JButton("Train neural network");
     final JButton recogButton = new JButton("Recognize input characters");
 

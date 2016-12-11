@@ -1,4 +1,4 @@
-package aihw.autocorrect;
+package src.aihw.autocorrect;
 
 public class AutoCorrect{
 
