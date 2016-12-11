@@ -34,15 +34,17 @@ public class NNControlPanel extends JPanel {
   /**
    * Default constructor.
    * 
-   * @param n reference to the neural network.
-   * @param frame reference to the parent JFrame.
+   * @param n
+   *          reference to the neural network.
+   * @param frame
+   *          reference to the parent JFrame.
    */
   public NNControlPanel(final HWNeuralNet n, final JFrame frame) {
     super(new BorderLayout(), true);
 
     this.frame = frame;
     this.nnet = n;
-    
+
     // Set the properties of the JFrame
     frame.setSize(new Dimension(640, 480));
     frame.add(this);
@@ -50,7 +52,7 @@ public class NNControlPanel extends JPanel {
     frame.pack();
     frame.setResizable(false);
     frame.setVisible(true);
-    
+
     final JButton trainButton = new JButton("Train neural network");
     final JButton recogButton = new JButton("Recognize input characters");
 
@@ -64,14 +66,14 @@ public class NNControlPanel extends JPanel {
       }
 
     });
-    
+
     recogButton.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         final JFrame recogFrame = new JFrame("Testing Neural Network");
         RecogControlPanel rcp = new RecogControlPanel(nnet, recogFrame);
-        
+
       }
     });
     add(trainButton, BorderLayout.WEST);

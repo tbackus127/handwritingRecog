@@ -3,7 +3,6 @@ package aihw.nnet;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.FileNotFoundException;
 
 /**
  * This class handles recognizing characters from images via the neural network.
