@@ -8,7 +8,7 @@
  *
  */
 
-package src.aihw.nnet;
+package aihw.nnet;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -7,7 +7,7 @@
  * Neuroph Javadoc: http://neuroph.sourceforge.net/javadoc/index.html
  */
 
-package src.aihw.nnet;
+package aihw.nnet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,8 +15,7 @@ import java.io.FileNotFoundException;
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.nnet.MultiLayerPerceptron;
 
-import src.aihw.utils.DataSetFactory;
-import src.aihw.utils.ImageSplitter;
+import aihw.utils.DataSetFactory;
 
 /**
  * This class acts as a wrapper for the neural network.

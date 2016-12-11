@@ -1,5 +1,5 @@
 
-package src.aihw.nnet;
+package aihw.nnet;
 
 /**
  * This class handles results from the neural network.

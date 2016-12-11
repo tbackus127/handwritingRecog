@@ -1,5 +1,5 @@
 
-package src.aihw.nnet;
+package aihw.nnet;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

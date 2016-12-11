@@ -10,23 +10,20 @@
  *
  */
 
-package src.aihw.nnet;
+package aihw.nnet;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import src.aihw.utils.Drawing;
+import aihw.utils.Drawing;
 
 public class RecogControlPanel extends JPanel {
 
