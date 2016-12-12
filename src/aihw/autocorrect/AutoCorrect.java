@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.LinkedList;
+import java.util.Iterator;
 
 /*
  * All methods and variabless in this class--even those based on 
@@ -21,7 +22,14 @@ public class AutoCorrect{
     private static boolean isDictionarySetup = false;
     private static LinkedList<String> dictionary = new LinkedList<String>();
 
-    
+
+
+    /*
+     * Checks a full sentence, or list of words, with a custom max 
+     * levenshtein distance. Splits the sentence using 
+     * String.split("\\s+") and passes each element in the returned
+     * array to the checkWord method.
+     */
     public static String checkString(String toCheck, int maxDistance){
         String[] holder = toCheck.split("\\s+");
         String toReturn = "";
@@ -31,6 +39,11 @@ public class AutoCorrect{
         return toReturn;
     }
 
+    /*
+     * Checks a sentence with a standard max distance.
+     * This method is the same as:
+     * checkString(toCheck, AutoCorrect.MAX_DISTANCE);
+     */
     public static String checkString(String toCheck){
         return checkString(toCheck, MAX_DISTANCE);
     }
@@ -65,16 +78,40 @@ public class AutoCorrect{
 	return checkWord(toCheck, MAX_DISTANCE);
     }
 
+    /*
+     * Iterates through the dictionary list, and passes all entries
+     * one by one into the levenshtein method.
+     */
     private static String levenshteinEngine(String toCheck, int dist){
+        boolean found = false;
+        String toReturn = null;
         if(toCheck == null){
             throw new IllegalArgumentException("Strings must not be null!");
         }
+
+        //Because setting up the dictionary is such a
+        //lengthy process, we only want to do it once.
         if(!isDictionarySetup){
             setupDictionary();
         }
-        return null;
+        Iterator<String> iterate = dictionary.iterator();
+        while(iterate.hasNext() && !found){
+            String temp = iterate.next();
+            if(levenshtein(toCheck, temp, dist)){
+                toReturn = temp;
+                found = true;
+                System.out.println("Found a match of: " +
+                                   toCheck +
+                                   ". Matched with: " +
+                                   temp);
+            }
+        }
+        return toReturn;
     }
 
+    /*
+     * Sets up the dictionary linkedlist. 
+     */
     private static void setupDictionary(){
         try{
             Scanner dictionaryScanner = new Scanner(
