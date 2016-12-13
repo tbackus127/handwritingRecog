@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
  * @author Tim Backus tbackus127@gmail.com
  * @author Jarred Durant EMAIL_HERE
  * @author Tyler Fiacco EMAIL_HERE
- * @author Eric Sakshaug EMAIL_HERE
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
  *
  */
 public class NNTrainer {

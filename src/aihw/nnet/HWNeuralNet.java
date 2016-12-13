@@ -23,7 +23,7 @@ import aihw.utils.DataSetFactory;
  * @author Tim Backus tbackus127@gmail.com
  * @author Jarred Durant jarreddurant14@gmail.com
  * @author Tyler Fiacco EMAIL_HERE
- * @author Eric Sakshaug EMAIL_HERE
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
  *
  */
 public class HWNeuralNet {
