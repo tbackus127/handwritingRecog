@@ -19,7 +19,7 @@ public class AutoCorrect{
 
   public static final int MAX_DISTANCE = 5;
   public static final String DICTIONARY_FILE_LOCATION = System.getProperty("user.dir") + 
-         "/handwritingRecog/res/autocorrect/dictionary.txt";
+         "/res/autocorrect/dictionary.txt";
   private static boolean isDictionarySetup = false;
   private static LinkedList<String> dictionary = new LinkedList<String>();
 
