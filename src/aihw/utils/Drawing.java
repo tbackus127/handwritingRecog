@@ -35,6 +35,9 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
 
   LinkedList<GeneralPath> old_paths = new LinkedList<GeneralPath>();
 
+  //The serial number: This has to be here.
+  private static final long serialVersionUID = 1L; 
+    
   public Drawing() {
     setBackground(Color.WHITE); // Make the background color white
 
