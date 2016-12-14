@@ -5,7 +5,7 @@ This project is created for the Artificial Intelligence class at SUNY Potsdam.
 
 ## Group Members:
 * Timothy Backus: http://github.com/tbackus127
-* Tyler Fiacco: (TBD)
+* Tyler Fiacco: https://github.com/fiaccotd197
 * Eric Sakshaug: http://github.com/EricSakshaug11
 * Jared Durant: http://github.com/durantjm198
 
@@ -17,6 +17,8 @@ This project deals with the real-world problem of handwriting recognition; since
 
 In order to get a wide enough dataset, we plan to have various people across campus write out the alphabet in 26 boxes, scan the paper into a computer to be split into individual images per letter, and then fed into the neural network to train it.
 
+This project also includes autocorrect via the Levanshtein method just in case the neural network fails to correctly identify a letter as a safety net.
+
 ## Usage
 
 ### Image Splitter
@@ -25,10 +27,22 @@ In order to get a wide enough dataset, we plan to have various people across cam
 
 26 folders will be created in res/tdata for each letter of the lowercase alphabet. The Nth image in each folder represents the corresponding letter for the Nth row of the image that was split.
 
-### Neural Net Trainer
+### Master Control Panel
 
-'java -cp bin/ aihw.nnet.NNTrainer'
+'java -cp bin/ aihw.nnet.ControlPanelRunner'
 
 ### Recognizer Test
 
 'java -cp bin/ aihw.nnet.NNRecognizer'
+
+### Autocorrect Tester
+
+'java -cp bin/ aihw.autocorrect.AutoCorrectTester [WORD1] [WORD2] [WORD3] ...'
+
+### Word Splitter
+
+'java -cp bin/ aihw.utils.WordSplitter <IMAGE_TO_SPLIT>'
+
+### Word Reader
+
+'java -cp bin/ aihw.utils.WordReader [PATH_TO_WORD_DATA] [TRAINING_DATA_PATH]'
