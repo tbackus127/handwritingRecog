@@ -35,9 +35,9 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
 
   LinkedList<GeneralPath> old_paths = new LinkedList<GeneralPath>();
 
-  //The serial number: This has to be here.
-  private static final long serialVersionUID = 1L; 
-    
+  // The serial number: This has to be here.
+  private static final long serialVersionUID = 1L;
+
   public Drawing() {
     setBackground(Color.WHITE); // Make the background color white
 
@@ -117,15 +117,14 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
 
     done.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        
+
       }
     });
   }
 
   /*
-   * Because of Polymorphism, this is already a jpanel. 
-   * JPanels have the ability to be converted into 
-   * BufferedImage, so we can easily change it to a png.
+   * Because of Polymorphism, this is already a jpanel. JPanels have the ability
+   * to be converted into BufferedImage, so we can easily change it to a png.
    *
    * TESTING REQUIRED - THIS METHOD HAS NOT BEEN TESTED
    */
@@ -138,14 +137,14 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     g.dispose();
     return toReturn;
   }
-    
+
   /*
-   * This is exactly like the getImage method, but it
-   * converts the image to a file.
+   * This is exactly like the getImage method, but it converts the image to a
+   * file.
    *
    * TESTING REQUIRED - THIS METHOD HAS NOT BEEN TESTED
    */
-  public void imageToFile(String filepath) throws IOException{
+  public void imageToFile(String filepath) throws IOException {
     BufferedImage img = getImage();
     ImageIO.write(img, "png", new File(filepath));
   }

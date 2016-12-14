@@ -214,7 +214,7 @@ public class WordSplitter {
   }
 
   /**
-   * Saves a timestamped image of a character to the disk.
+   * Saves an image of a character to the disk.
    * 
    * @param ch
    *          the character this image contains. Will be saved to
@@ -229,7 +229,7 @@ public class WordSplitter {
     final String timestamp = new Long(System.nanoTime()).toString();
 
     System.out.println("Saving image #" + tCount);
-    File splImgFile = new File("res/tdata/" + ch + "/" + tCount + "-" + timestamp + ".png");
+    File splImgFile = new File("res/data/word/" + tCount + ".png");
     splImgFile.getParentFile().mkdirs();
 
     try {

@@ -4,8 +4,8 @@ package aihw.utils;
 import java.awt.image.BufferedImage;
 
 /**
- * This class acts as a struct for a split image, containing the image as a BufferedImage, and a char representing what
- * character the image is of.
+ * This class acts as a struct for a split image, containing the image as a
+ * BufferedImage, and a char representing what character the image is of.
  * 
  * @author Tim Backus tbackus127@gmail.com
  * @author Jarred Durant jarreddurant14@gmail.com
@@ -24,8 +24,10 @@ public class SplitImage {
   /**
    * Default constructor.
    * 
-   * @param ch the character the image contains.
-   * @param img the image data as a BufferedImage.
+   * @param ch
+   *          the character the image contains.
+   * @param img
+   *          the image data as a BufferedImage.
    */
   public SplitImage(char ch, BufferedImage img) {
     this.ch = ch;

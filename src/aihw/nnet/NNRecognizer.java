@@ -35,7 +35,7 @@ public class NNRecognizer {
     return this.nnet.recognizeCharacter(image);
   }
 
- public void recognizeTrainingData() {
+  public void recognizeTrainingData() {
     // Get all files (directories only) in 'res/tdata'
     final File[] tdataDirs = new File("res/tdata").listFiles(new FilenameFilter() {
 
