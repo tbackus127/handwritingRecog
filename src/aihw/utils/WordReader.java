@@ -10,8 +10,8 @@ import aihw.autocorrect.AutoCorrect;
 
 public class WordReader {
 
-    private String resPath = "res/data/word/";
-    private String HWPath = "res/tdata/";
+    private static String resPath = "res/data/word/";
+    private static String HWPath = "res/tdata/";
     
   public static void main(String[] args) {
     System.out.println("Starting to read a String from saved data");
@@ -21,7 +21,7 @@ public class WordReader {
         resPath = args[0];
         HWPath = args[1];
     } else {
-      System.out.println(readString());
+      System.out.println("Your output is: \n" + readString());
     }
   }
 
@@ -29,9 +29,12 @@ public class WordReader {
         NNRecognizer nNet = new NNRecognizer(new HWNeuralNet(new File(HWPath)));
         File resFolder = new File(resPath);
         File[] fileArray = resFolder.listFiles(new FileFilter(resFolder));
-        Arrays.sort(fileArray); //Sorts the files numericaly.
+        Arrays.sort(fileArray, new NumericFileComparator()); //Sorts the files numericaly.
+        for(int i = 0 ; i < fileArray.length ; i++){
+            System.out.println(fileArray[i]);
+        }
         String lastName = fileArray[fileArray.length-1].getName();
-        lastName = lastName.subString(0, lastName.indexOf("."));
+        lastName = lastName.substring(0, lastName.indexOf("."));
         int numOfChars = new Integer(lastName).intValue();
         String output = "";
         int j = 0;
@@ -49,11 +52,9 @@ public class WordReader {
             }else{
                 output += " ";
             }
-        }
-        output = AutoCorrect.checkString(output);
-        System.out.println(output);
+        }    
+    return AutoCorrect.checkString(output);
     }
-    return null;
 }
 
 
