@@ -16,7 +16,7 @@ public class WordReader{
 
     public static String readString(){
         NNRecognizer nNet = new NNRecognizer(new HWNeuralNet(new File("res/tdata/")));
-        
+        File resFolder = new File();
     }
     
 }
