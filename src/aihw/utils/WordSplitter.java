@@ -61,7 +61,7 @@ public class WordSplitter {
 
     // Check against invalid runtime params and print usage message
     if (args.length != 1) {
-      System.err.println("Invalid runtime arguments. Usage:\n  " + "\"java ImageSplitter <scanned image file>\"");
+      System.err.println("Invalid runtime arguments. Usage:\n  " + "\"java WordSplitter <scanned image file>\"");
       return;
     }
 
