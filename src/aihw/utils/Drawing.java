@@ -133,7 +133,7 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
   }
     
   /*
-   * This is exactly like the previous method, but it
+   * This is exactly like the getImage method, but it
    * converts the image to a file.
    *
    * TESTING REQUIRED - THIS METHOD HAS NOT BEEN TESTED
