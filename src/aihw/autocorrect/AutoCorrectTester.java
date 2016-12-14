@@ -9,7 +9,7 @@ public class AutoCorrectTester{
         if(args.length > 1){
             String toTest = "";
             for(int i = 0 ; i < args.length ; i++){
-                toTest += args[i];
+                toTest += args[i] + " ";
             }
             System.out.println("Autocorrected " +
                                toTest +
