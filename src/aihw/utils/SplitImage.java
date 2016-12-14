@@ -21,6 +21,7 @@ public class SplitImage {
   /** The image itself. */
   private final BufferedImage img;
 
+  
   /**
    * Default constructor.
    * 
