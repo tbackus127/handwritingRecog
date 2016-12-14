@@ -118,7 +118,7 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
   /*
    * Because of Polymorphism, this is already a jpanel. 
    * JPanels have the ability to be converted into 
-   * BufferedImage, so we can easily change it to a jpg.
+   * BufferedImage, so we can easily change it to a png.
    *
    * TESTING REQUIRED - THIS METHOD HAS NOT BEEN TESTED
    */
@@ -127,7 +127,7 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     int h = this.getHeight();
     BufferedImage toReturn = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
     Graphics2D g = toReturn.createGraphics();
-    printAll(g);
+    this.printAll(g);
     g.dispose();
     return toReturn;
   }
