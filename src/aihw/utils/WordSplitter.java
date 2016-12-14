@@ -8,22 +8,21 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.imageio.ImageIO;
 
 /**
- * This class will take a scanned image with 26 lowercase letters hand-written into its respective boxes and split it
- * into 26 separate images to be later fed into a neural network for handwriting recognition.
+ * This class will take a scanned image with 26 lowercase letters hand-written
+ * into its respective boxes and split it into 26 separate images to be later
+ * fed into a neural network for handwriting recognition.
  * 
  * @author Tim Backus tbackus127@gmail.com
  * @author Jarred Durant EMAIL_HERE
- * @author Tyler Fiacco EMAIL_HERE
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
  * @author Eric Sakshaug EMAIL_HERE
  * 
  */
-public class ImageSplitter {
+public class WordSplitter {
 
   /** How many boxes are in a column on the scanned image. */
   private static final int BOXES_PER_COLUMN = 21;
@@ -49,13 +48,17 @@ public class ImageSplitter {
   /** An image counter to prevent overwrites. */
   private static int IMAGE_COUNTER = 0;
 
-  /** The amount of color a pixel needs to be turned white by the threshold operation. */
+  /**
+   * The amount of color a pixel needs to be turned white by the threshold
+   * operation.
+   */
   private static int COLOR_THRESHOLD = 215;
 
   /**
    * Main method.
    * 
-   * @param args args[0]: the scanned image file location.
+   * @param args
+   *          args[0]: the scanned image file location.
    */
   public static void main(String[] args) {
 
@@ -80,7 +83,8 @@ public class ImageSplitter {
   /**
    * Splits an image into its individual letter images.
    * 
-   * @param img the File handle to the scanned image.
+   * @param img
+   *          the File handle to the scanned image.
    */
   private static final void doImageSplit(File f) {
 
@@ -88,8 +92,7 @@ public class ImageSplitter {
     BufferedImage img = null;
     try {
       img = ImageIO.read(f);
-    }
-    catch (IOException ioe) {
+    } catch (IOException ioe) {
       ioe.printStackTrace();
       System.err.println("Failed to read the file as an image.");
       return;
@@ -100,8 +103,9 @@ public class ImageSplitter {
     // Split the image and save the result images
     final SplitImage[] splitImages = splitImage(threshImg);
     for (SplitImage splImg : splitImages) {
-      if (splImg == null) break;
-//========================================================================
+      if (splImg == null)
+        break;
+      // ========================================================================
       saveImage(splImg.getChar(), splImg.getImage(), IMAGE_COUNTER++);
     }
     System.out.println("Image split successfully.");
@@ -111,7 +115,8 @@ public class ImageSplitter {
   /**
    * Splits the image into an array of SplitImage objects.
    * 
-   * @param sampleImg the original handwriting sample image.
+   * @param sampleImg
+   *          the original handwriting sample image.
    * @return an array of SplitImages, containing the image and its character.
    */
   private static final SplitImage[] splitImage(BufferedImage sampleImg) {
@@ -162,8 +167,10 @@ public class ImageSplitter {
   /**
    * Performs a threshold operation on a BufferedImage
    * 
-   * @param original the image to threshold.
-   * @param thresh the threshold of color.
+   * @param original
+   *          the image to threshold.
+   * @param thresh
+   *          the threshold of color.
    * @return the new threshold-ed image.
    */
   private static final BufferedImage doThreshold(BufferedImage original, int thresh) {
@@ -209,13 +216,17 @@ public class ImageSplitter {
   /**
    * Saves a timestamped image of a character to the disk.
    * 
-   * @param ch the character this image contains. Will be saved to 'res/tdata/CHAR/COUNT.jpg'.
-   * @param img the BufferedImage object containing the character's image data.
-   * @param tCount a counter to prevent overwrites.
+   * @param ch
+   *          the character this image contains. Will be saved to
+   *          'res/tdata/CHAR/COUNT.jpg'.
+   * @param img
+   *          the BufferedImage object containing the character's image data.
+   * @param tCount
+   *          a counter to prevent overwrites.
    */
   private static final void saveImage(char ch, BufferedImage img, int tCount) {
 
-      final String timestamp = new Long(System.nanoTime()).toString();
+    final String timestamp = new Long(System.nanoTime()).toString();
 
     System.out.println("Saving image #" + tCount);
     File splImgFile = new File("res/tdata/" + ch + "/" + tCount + "-" + timestamp + ".png");
@@ -224,8 +235,7 @@ public class ImageSplitter {
     try {
       splImgFile.createNewFile();
       ImageIO.write(img, "png", splImgFile);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
 
@@ -234,7 +244,8 @@ public class ImageSplitter {
   /**
    * Checks if a passed file is a valid image.
    * 
-   * @param scanFile the File handle to the image.
+   * @param scanFile
+   *          the File handle to the image.
    * @return true if scanFile is an image, false if not.
    */
   private static final boolean isFileValid(File scanFile) {
