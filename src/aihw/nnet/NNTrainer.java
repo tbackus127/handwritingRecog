@@ -3,8 +3,8 @@ package aihw.nnet;
 
 import java.io.File;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
 
 /**
  * This class will load the existing neural network and train it.
