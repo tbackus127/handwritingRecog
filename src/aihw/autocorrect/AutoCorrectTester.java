@@ -5,6 +5,7 @@ import aihw.autocorrect.AutoCorrect;
 public class AutoCorrectTester{
 
     public static void main(String[] args){
+        System.out.println("Number of words: " + args.length);
         if(args.length > 1){
             String toTest = "";
             for(int i = 0 ; i < args.length ; i++){
