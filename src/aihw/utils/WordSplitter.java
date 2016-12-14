@@ -12,14 +12,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * This class will take a scanned image with 26 lowercase letters hand-written
- * into its respective boxes and split it into 26 separate images to be later
- * fed into a neural network for handwriting recognition.
+ * This class will take a scanned image with 26 lowercase letters hand-written into its respective boxes and split it
+ * into 26 separate images to be later fed into a neural network for handwriting recognition.
  * 
  * @author Tim Backus tbackus127@gmail.com
- * @author Jarred Durant EMAIL_HERE
+ * @author Jarred Durant jarreddurant14@gmail.com
  * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
- * @author Eric Sakshaug EMAIL_HERE
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
  * 
  */
 public class WordSplitter {
@@ -49,16 +48,14 @@ public class WordSplitter {
   private static int IMAGE_COUNTER = 0;
 
   /**
-   * The amount of color a pixel needs to be turned white by the threshold
-   * operation.
+   * The amount of color a pixel needs to be turned white by the threshold operation.
    */
   private static int COLOR_THRESHOLD = 215;
 
   /**
    * Main method.
    * 
-   * @param args
-   *          args[0]: the scanned image file location.
+   * @param args args[0]: the scanned image file location.
    */
   public static void main(String[] args) {
 
@@ -83,8 +80,7 @@ public class WordSplitter {
   /**
    * Splits an image into its individual letter images.
    * 
-   * @param img
-   *          the File handle to the scanned image.
+   * @param img the File handle to the scanned image.
    */
   private static final void doImageSplit(File f) {
 
@@ -92,7 +88,8 @@ public class WordSplitter {
     BufferedImage img = null;
     try {
       img = ImageIO.read(f);
-    } catch (IOException ioe) {
+    }
+    catch (IOException ioe) {
       ioe.printStackTrace();
       System.err.println("Failed to read the file as an image.");
       return;
@@ -103,8 +100,7 @@ public class WordSplitter {
     // Split the image and save the result images
     final SplitImage[] splitImages = splitImage(threshImg);
     for (SplitImage splImg : splitImages) {
-      if (splImg == null)
-        break;
+      if (splImg == null) break;
       // ========================================================================
       saveImage(splImg.getChar(), splImg.getImage(), IMAGE_COUNTER++);
     }
@@ -115,8 +111,7 @@ public class WordSplitter {
   /**
    * Splits the image into an array of SplitImage objects.
    * 
-   * @param sampleImg
-   *          the original handwriting sample image.
+   * @param sampleImg the original handwriting sample image.
    * @return an array of SplitImages, containing the image and its character.
    */
   private static final SplitImage[] splitImage(BufferedImage sampleImg) {
@@ -167,10 +162,8 @@ public class WordSplitter {
   /**
    * Performs a threshold operation on a BufferedImage
    * 
-   * @param original
-   *          the image to threshold.
-   * @param thresh
-   *          the threshold of color.
+   * @param original the image to threshold.
+   * @param thresh the threshold of color.
    * @return the new threshold-ed image.
    */
   private static final BufferedImage doThreshold(BufferedImage original, int thresh) {
@@ -216,17 +209,11 @@ public class WordSplitter {
   /**
    * Saves an image of a character to the disk.
    * 
-   * @param ch
-   *          the character this image contains. Will be saved to
-   *          'res/tdata/CHAR/COUNT.jpg'.
-   * @param img
-   *          the BufferedImage object containing the character's image data.
-   * @param tCount
-   *          a counter to prevent overwrites.
+   * @param ch the character this image contains. Will be saved to 'res/tdata/CHAR/COUNT.jpg'.
+   * @param img the BufferedImage object containing the character's image data.
+   * @param tCount a counter to prevent overwrites.
    */
   private static final void saveImage(char ch, BufferedImage img, int tCount) {
-
-    final String timestamp = new Long(System.nanoTime()).toString();
 
     System.out.println("Saving image #" + tCount);
     File splImgFile = new File("res/data/word/" + tCount + ".png");
@@ -235,7 +222,8 @@ public class WordSplitter {
     try {
       splImgFile.createNewFile();
       ImageIO.write(img, "png", splImgFile);
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
 
@@ -244,8 +232,7 @@ public class WordSplitter {
   /**
    * Checks if a passed file is a valid image.
    * 
-   * @param scanFile
-   *          the File handle to the image.
+   * @param scanFile the File handle to the image.
    * @return true if scanFile is an image, false if not.
    */
   private static final boolean isFileValid(File scanFile) {

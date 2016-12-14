@@ -16,9 +16,9 @@ import org.neuroph.core.data.DataSetRow;
  * This class creates a DataSet to be used with Neuroph's network.
  * 
  * @author Tim Backus tbackus127@gmail.com
- * @author Jarred Durant EMAIL_HERE
- * @author Tyler Fiacco EMAIL_HERE
- * @author Eric Sakshaug EMAIL_HERE
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
  *
  */
 public class DataSetFactory {
@@ -56,7 +56,7 @@ public class DataSetFactory {
       // And each of the files in the letter folder
       final File[] trainingImages = charFolder.listFiles();
       for (File imgFile : trainingImages) {
-
+        
 
         result.addRow(getDataRow(imgFile, charNum));
       }

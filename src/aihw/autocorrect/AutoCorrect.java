@@ -1,3 +1,4 @@
+
 package aihw.autocorrect;
 
 import java.util.Arrays;
@@ -6,26 +7,39 @@ import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.Iterator;
 
-/*
- * All methods and variabless in this class--even those based on 
- * real concepts--are entirely fictional. All celebrity voices 
- * are impersonated.....Poorly. The following program contains
- * stupid language and due to its content it should not be used 
- * by anyone.
+/**
+ * All methods and variabless in this class--even those based on real concepts--are entirely fictional. All celebrity
+ * voices are impersonated.....Poorly. The following program contains stupid language and due to its content it should
+ * not be used by anyone.
+ * 
+ * @author Tim Backus tbackus127@gmail.com
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
+ *
  */
-
 public class AutoCorrect {
 
+  /** The max distance for the autocorrect to look. */
   public static final int MAX_DISTANCE = 5;
+
+  /** The location of the dictonary file. */
   public static final String DICTIONARY_FILE_LOCATION = System.getProperty("user.dir")
       + "/res/autocorrect/dictionary.txt";
+
+  /** Whether or not the dictionary is set up. */
   private static boolean isDictionarySetup = false;
+
+  /** The dictionary. */
   private static LinkedList<String> dictionary = new LinkedList<String>();
 
-  /*
-   * Checks a full sentence, or list of words, with a custom max levenshtein
-   * distance. Splits the sentence using String.split("\\s+") and passes each
-   * element in the returned array to the checkWord method.
+  /**
+   * Checks a full sentence, or list of words, with a custom max levenshtein distance. Splits the sentence using
+   * String.split("\\s+") and passes each element in the returned array to the checkWord method.
+   * 
+   * @param toCheck the String to check.
+   * @param maxDistance the maximum distance to check.
+   * @return the checked String.
    */
   public static String checkString(String toCheck, int maxDistance) {
     String[] holder = toCheck.split("\\s+");
@@ -36,38 +50,50 @@ public class AutoCorrect {
     return toReturn;
   }
 
-  /*
-   * Checks a sentence with a standard max distance. This method is the same as:
-   * checkString(toCheck, AutoCorrect.MAX_DISTANCE);
+  /**
+   * Checks a sentence with a standard max distance. This method is the same as: checkString(toCheck,
+   * AutoCorrect.MAX_DISTANCE);
+   * 
+   * @param toCheck the String to check.
+   * @return the checked String.
    */
   public static String checkString(String toCheck) {
     return checkString(toCheck, MAX_DISTANCE);
   }
 
-  /*
-   * Checks the string with a custom max Levenshtein distance. This method will
-   * return the first string with the lowest Levenshtein distance. Example:
-   * Input string: "Dun" Possible matches at distance 1: "Bun, Dan, Den, Din,
-   * Don, Dune, Dung, Dunk, Duns, Dunt, Duny, Fun, Gun, Hun, Nun, Pun, Run, Sun"
-   * Bun would be returned, as it is the first in alphabetical order. (But not
-   * really, because apparently dun is a word that I didn't know about)
+  /**
+   * Checks the string with a custom max Levenshtein distance. This method will return the first string with the lowest
+   * Levenshtein distance. Example: Input string: "Dun" Possible matches at distance 1: "Bun, Dan, Den, Din, Don, Dune,
+   * Dung, Dunk, Duns, Dunt, Duny, Fun, Gun, Hun, Nun, Pun, Run, Sun" Bun would be returned, as it is the first in
+   * alphabetical order. (But not really, because apparently dun is a word that I didn't know about)
+   * 
+   * @param toCheck the String to check.
+   * @param maxDistance the distance to check for spelling errors.
+   * @return the checked word.
    */
   public static String checkWord(String toCheck, int maxDistance) {
     String toReturn = levenshteinEngine(toCheck, maxDistance);
     return toReturn;
   }
 
-  /*
-   * Checks the word with a standard max distance. This method is the same as:
+  /**
+   * checkWord helper method. Checks the word with a standard max distance. This method is the same as:
    * AutoCorrect.checkString(toCheck, AutoCorrect.MAX_DISTANCE);
+   * 
+   * @param toCheck the word to check.
+   * @return the checked word.
    */
   public static String checkWord(String toCheck) {
     return checkWord(toCheck, MAX_DISTANCE);
   }
 
-  /*
-   * Iterates through the dictionary list, and passes all entries one by one
-   * into the levenshtein method.
+  /**
+   * Performs the Levenshtein algorithm. Iterates through the dictionary list, and passes all entries one by one into
+   * the levenshtein method.
+   * 
+   * @param toCheck the String to check.
+   * @param dist the distance to check.
+   * @return the corrected string.
    */
   private static String levenshteinEngine(String toCheck, int dist) {
     boolean found = false;
@@ -105,8 +131,8 @@ public class AutoCorrect {
     return toReturn;
   }
 
-  /*
-   * Sets up the dictionary linkedlist.
+  /**
+   * Sets up the dictionary in the LinkedList.
    */
   private static void setupDictionary() {
     try {
@@ -116,17 +142,22 @@ public class AutoCorrect {
       }
       isDictionarySetup = true;
       dictionaryScanner.close();
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  /*
-   * This implementation of comparation for Levenshtein Distance was pulled
-   * from: https://commons.apache.org/sandbox/commons-text/jacoco/
-   * org.apache.commons.text.similarity/LevenshteinDistance.java.html This
-   * method was modified from its original version, it has been formatted to fit
-   * your screen.
+  /**
+   * Performs the Levenshtein algorithm. This implementation of comparation for Levenshtein Distance was pulled from:
+   * https://commons.apache.org/sandbox/commons-text/jacoco/
+   * org.apache.commons.text.similarity/LevenshteinDistance.java.html This method was modified from its original
+   * version, it has been formatted to fit your screen.
+   * 
+   * @param left the left part.
+   * @param right the right part.
+   * @param threshold the threshold.
+   * @return an int.
    */
   private static int levenshtein(CharSequence left, CharSequence right, int threshold) {
     if (left == null || right == null) {
@@ -137,44 +168,34 @@ public class AutoCorrect {
     }
 
     /*
-     * This implementation only computes the distance if it's less than or equal
-     * to the threshold value, returning -1 if it's greater. The advantage is
-     * performance: unbounded distance is O(nm), but a bound of k allows us to
-     * reduce it to O(km) time by only computing a diagonal stripe of width 2k +
-     * 1 of the cost table. It is also possible to use this to compute the
-     * unbounded Levenshtein distance by starting the threshold at 1 and
-     * doubling each time until the distance is found; this is O(dm), where d is
-     * the distance.
+     * This implementation only computes the distance if it's less than or equal to the threshold value, returning -1 if
+     * it's greater. The advantage is performance: unbounded distance is O(nm), but a bound of k allows us to reduce it
+     * to O(km) time by only computing a diagonal stripe of width 2k + 1 of the cost table. It is also possible to use
+     * this to compute the unbounded Levenshtein distance by starting the threshold at 1 and doubling each time until
+     * the distance is found; this is O(dm), where d is the distance.
      *
-     * One subtlety comes from needing to ignore entries on the border of our
-     * stripe eg. p[] = |#|#|#|* d[] = *|#|#|#| We must ignore the entry to the
-     * left of the leftmost member We must ignore the entry above the rightmost
-     * member
+     * One subtlety comes from needing to ignore entries on the border of our stripe eg. p[] = |#|#|#|* d[] = *|#|#|#|
+     * We must ignore the entry to the left of the leftmost member We must ignore the entry above the rightmost member
      *
-     * Another subtlety comes from our stripe running off the matrix if the
-     * strings aren't of the same size. Since string s is always swapped to be
-     * the shorter of the two, the stripe will always run off to the upper right
+     * Another subtlety comes from our stripe running off the matrix if the strings aren't of the same size. Since
+     * string s is always swapped to be the shorter of the two, the stripe will always run off to the upper right
      * instead of the lower left of the matrix.
      *
-     * As a concrete example, suppose s is of length 5, t is of length 7, and
-     * our threshold is 1. In this case we're going to walk a stripe of length
-     * 3. The matrix would look like so:
+     * As a concrete example, suppose s is of length 5, t is of length 7, and our threshold is 1. In this case we're
+     * going to walk a stripe of length 3. The matrix would look like so:
      *
-     * <pre> 1 2 3 4 5 1 |#|#| | | | 2 |#|#|#| | | 3 | |#|#|#| | 4 | | |#|#|#| 5
-     * | | | |#|#| 6 | | | | |#| 7 | | | | | | </pre>
+     * <pre> 1 2 3 4 5 1 |#|#| | | | 2 |#|#|#| | | 3 | |#|#|#| | 4 | | |#|#|#| 5 | | | |#|#| 6 | | | | |#| 7 | | | | | |
+     * </pre>
      *
-     * Note how the stripe leads off the table as there is no possible way to
-     * turn a string of length 5 into one of length 7 in edit distance of 1.
+     * Note how the stripe leads off the table as there is no possible way to turn a string of length 5 into one of
+     * length 7 in edit distance of 1.
      *
-     * Additionally, this implementation decreases memory usage by using two
-     * single-dimensional arrays and swapping them back and forth instead of
-     * allocating an entire n by m matrix. This requires a few minor changes,
-     * such as immediately returning when it's detected that the stripe has run
-     * off the matrix and initially filling the arrays with large values so that
-     * entries we don't compute are ignored.
+     * Additionally, this implementation decreases memory usage by using two single-dimensional arrays and swapping them
+     * back and forth instead of allocating an entire n by m matrix. This requires a few minor changes, such as
+     * immediately returning when it's detected that the stripe has run off the matrix and initially filling the arrays
+     * with large values so that entries we don't compute are ignored.
      *
-     * See Algorithms on Strings, Trees and Sequences by Dan Gusfield for some
-     * discussion.
+     * See Algorithms on Strings, Trees and Sequences by Dan Gusfield for some discussion.
      */
 
     int n = left.length(); // length of left

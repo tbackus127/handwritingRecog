@@ -1,3 +1,4 @@
+
 package aihw.utils;
 
 import java.awt.BasicStroke;
@@ -27,25 +28,40 @@ import javax.swing.JPanel;
  * Simple drawing program.
  * 
  * @author W. Patrick Hooper whooper@ccny.cuny.edu
+ * @author Tim Backus tbackus127@gmail.com
  * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
  */
 public class Drawing extends JPanel implements MouseListener, MouseMotionListener {
 
-  GeneralPath p = new GeneralPath();
+  /** The GeneralPath object. */
+  private GeneralPath p = new GeneralPath();
 
-  LinkedList<GeneralPath> old_paths = new LinkedList<GeneralPath>();
+  /** A list of old paths. */
+  private LinkedList<GeneralPath> old_paths = new LinkedList<GeneralPath>();
 
-  // The serial number: This has to be here.
+  /** Default serial version. */
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Default constructor.
+   */
   public Drawing() {
-    setBackground(Color.WHITE); // Make the background color white
+
+    // Make the background color white
+    setBackground(Color.WHITE);
 
     // Necessary for mouse interaction:
     addMouseListener(this);
     addMouseMotionListener(this);
   }
 
+  /**
+   * Paints the panel.
+   * 
+   * @param gfx the Graphics object.
+   */
   @Override
   public void paintComponent(Graphics gfx) {
     // This stuff is standard, and should be in any paintComponent method.
@@ -62,19 +78,36 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
   }
 
   ///// MOUSE INTERACTION
-  // Implementation of MouseListener
-  @Override
-  public void mouseClicked(MouseEvent me) {
-  }
 
+  /**
+   * Mouse event - click.
+   * 
+   * @param me the MouseEvent generated.
+   */
   @Override
-  public void mouseEntered(MouseEvent me) {
-  }
+  public void mouseClicked(MouseEvent me) {}
 
+  /**
+   * Mouse event - enter panel.
+   * 
+   * @param me the MouseEvent generated.
+   */
   @Override
-  public void mouseExited(MouseEvent me) {
-  }
+  public void mouseEntered(MouseEvent me) {}
 
+  /**
+   * Mouse event - exit panel.
+   * 
+   * @param me the MouseEvent generated.
+   */
+  @Override
+  public void mouseExited(MouseEvent me) {}
+
+  /**
+   * Mouse event - button down
+   * 
+   * @param me the MouseEvent generated.
+   */
   @Override
   public void mousePressed(MouseEvent me) {
     old_paths.add(p);
@@ -83,21 +116,37 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     repaint();
   }
 
+  /**
+   * Mouse event - mouse up.
+   * 
+   * @param me the MouseEvent generated.
+   */
   @Override
-  public void mouseReleased(MouseEvent me) {
-  }
+  public void mouseReleased(MouseEvent me) {}
 
   // Implementation of MouseMotionListener
+  /**
+   * Mouse event - drag
+   * 
+   * @param me the MouseEvent generated.
+   */
   @Override
   public void mouseDragged(MouseEvent me) {
     p.lineTo(me.getX(), me.getY());
     repaint();
   }
 
+  /**
+   * Mouse event - move
+   * 
+   * @param me the MouseEvent generated.
+   */
   @Override
-  public void mouseMoved(MouseEvent me) {
-  }
+  public void mouseMoved(MouseEvent me) {}
 
+  /**
+   * Runs the drawing panel.
+   */
   public void run() {
     // Construct a new window:
     JFrame frame = new JFrame("Draw a letter!");
@@ -116,17 +165,20 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     frame.setVisible(true);
 
     done.addActionListener(new ActionListener() {
+
       public void actionPerformed(ActionEvent e) {
 
       }
     });
   }
 
-  /*
-   * Because of Polymorphism, this is already a jpanel. JPanels have the ability
-   * to be converted into BufferedImage, so we can easily change it to a png.
-   *
+  /**
+   * Gets the image from this panel.Because of Polymorphism, this is already a jpanel. JPanels have the ability to be
+   * converted into BufferedImage, so we can easily change it to a png.
+   * 
    * TESTING REQUIRED - THIS METHOD HAS NOT BEEN TESTED
+   * 
+   * @return
    */
   public BufferedImage getImage() {
     int w = this.getWidth();
@@ -138,11 +190,13 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
     return toReturn;
   }
 
-  /*
-   * This is exactly like the getImage method, but it converts the image to a
-   * file.
-   *
+  /**
+   * Saves the image to a file. This is exactly like the getImage method, but it converts the image to a file.
+   * 
    * TESTING REQUIRED - THIS METHOD HAS NOT BEEN TESTED
+   * 
+   * @param filepath the path to save the image to.
+   * @throws IOException
    */
   public void imageToFile(String filepath) throws IOException {
     BufferedImage img = getImage();

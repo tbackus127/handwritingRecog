@@ -18,9 +18,9 @@ import javax.imageio.ImageIO;
  * into 26 separate images to be later fed into a neural network for handwriting recognition.
  * 
  * @author Tim Backus tbackus127@gmail.com
- * @author Jarred Durant EMAIL_HERE
- * @author Tyler Fiacco EMAIL_HERE
- * @author Eric Sakshaug EMAIL_HERE
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
  * 
  */
 public class ImageSplitter {

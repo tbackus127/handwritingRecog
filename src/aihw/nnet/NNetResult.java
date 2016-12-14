@@ -21,10 +21,8 @@ public class NNetResult {
   /**
    * Default constructor.
    * 
-   * @param c
-   *          the character.
-   * @param d
-   *          the certainty from 0 to 1, inclusive.
+   * @param c the character.
+   * @param d the certainty from 0 to 1, inclusive.
    */
   public NNetResult(char c, double d) {
     this.character = c;

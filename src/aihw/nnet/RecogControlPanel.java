@@ -1,14 +1,3 @@
-/**
- * This class is a GUI for the recognizer portion of the network.
- * It provides options to draw a character, recognize the network's
- * training data, or read an image file.
- * 
- * @author Tim Backus tbackus127@gmail.com
- * @author Jarred Durant jarreddurant14@gmail.com
- * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
- * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
- *
- */
 
 package aihw.nnet;
 
@@ -25,6 +14,16 @@ import javax.swing.JPanel;
 
 import aihw.utils.Drawing;
 
+/**
+ * This class is a GUI for the recognizer portion of the network. It provides options to draw a character, recognize the
+ * network's training data, or read an image file.
+ * 
+ * @author Tim Backus tbackus127@gmail.com
+ * @author Jarred Durant jarreddurant14@gmail.com
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
+ * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
+ *
+ */
 public class RecogControlPanel extends JPanel {
 
   /** The serial version number. */
@@ -36,17 +35,23 @@ public class RecogControlPanel extends JPanel {
   /** Reference to the parent JFrame. */
   @SuppressWarnings("unused")
   private final JFrame frame;
-  
+
+  /**
+   * Default constructor.
+   * 
+   * @param n reference to neural net.
+   * @param frame reference to parent JFrame.
+   */
   public RecogControlPanel(HWNeuralNet n, JFrame frame) {
     super(new BorderLayout(), true);
 
     this.frame = frame;
     this.nnet = n;
-    
+
     // Set the size of the JFrame
     frame.setSize(new Dimension(480, 320));
     frame.add(this);
-    
+
     final JButton drawButton = new JButton("Draw characters");
     final JButton trainingButton = new JButton("Recognize characters from training data");
     final JButton fileButton = new JButton("Get characters from file");
@@ -59,9 +64,9 @@ public class RecogControlPanel extends JPanel {
         d.run();
       }
     });
-    
+
     fileButton.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         final NNRecognizer recog = new NNRecognizer(nnet);
@@ -82,9 +87,9 @@ public class RecogControlPanel extends JPanel {
         }
       }
     });
-    
+
     trainingButton.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         NNRecognizer recog = new NNRecognizer(nnet);

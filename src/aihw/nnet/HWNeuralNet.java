@@ -22,7 +22,7 @@ import aihw.utils.DataSetFactory;
  * 
  * @author Tim Backus tbackus127@gmail.com
  * @author Jarred Durant jarreddurant14@gmail.com
- * @author Tyler Fiacco EMAIL_HERE
+ * @author Tyler Fiacco Tyler_Fiacco@yahoo.com
  * @author Eric Sakshaug Eric.Sakshaug11@gmail.com
  *
  */
