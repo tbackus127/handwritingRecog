@@ -101,6 +101,7 @@ public class ImageSplitter {
     final SplitImage[] splitImages = splitImage(threshImg);
     for (SplitImage splImg : splitImages) {
       if (splImg == null) break;
+//========================================================================
       saveImage(splImg.getChar(), splImg.getImage(), IMAGE_COUNTER++);
     }
     System.out.println("Image split successfully.");
@@ -214,7 +215,7 @@ public class ImageSplitter {
    */
   private static final void saveImage(char ch, BufferedImage img, int tCount) {
 
-    final String timestamp = new SimpleDateFormat("yyyy-MM-dd-HH-ss").format(new Date());
+      final String timestamp = new Long(System.nanoTime()).toString();
 
     System.out.println("Saving image #" + tCount);
     File splImgFile = new File("res/tdata/" + ch + "/" + tCount + "-" + timestamp + ".png");
