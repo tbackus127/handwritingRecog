@@ -13,8 +13,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.GeneralPath;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -140,7 +144,7 @@ public class Drawing extends JPanel implements MouseListener, MouseMotionListene
    */
   public void imageToFile(String filepath) throws IOException{
     BufferedImage img = getImage();
-    ImageIO.write(image, "png", new File(filepath));
+    ImageIO.write(img, "png", new File(filepath));
   }
 
 }
